@@ -78,9 +78,9 @@ int main(int argc, char **argv) {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_MULTISAMPLE);
 	glEnable(GL_MULTISAMPLE);
 
-    glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-    glutInitWindowPosition(WINDOW_POSITION_X, WINDOW_POSITION_Y);
-    glutCreateWindow(NAME);
+	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	glutInitWindowPosition(WINDOW_POSITION_X, WINDOW_POSITION_Y);
+	glutCreateWindow(NAME);
 	glutIgnoreKeyRepeat(true);
 
 	initG();
@@ -89,7 +89,7 @@ int main(int argc, char **argv) {
 	addLights();
 
 	glutDisplayFunc(display);
-    glutTimerFunc(TIMER_INTERVAL, update, 1);
+	glutTimerFunc(TIMER_INTERVAL, update, 1);
 
 	glutMainLoop();
 	return 1;
