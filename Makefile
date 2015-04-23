@@ -1,7 +1,7 @@
 all: main
 
 CC = g++
-CFLAGS = -Wall -lGL -lGLU -lglut -std=c++11
+CFLAGS = -Wall -lGL -lGLU -lglfw -std=c++11 -g
 LDFLAGS = -lm
 
 object.o: object.cpp object.hpp
@@ -12,3 +12,6 @@ world.o: world.cpp world.hpp
 
 main: main.o object.o world.o
 	${CC} ${CFLAGS} main.o object.o world.o ${LDFLAGS} -o main
+
+clean:
+	rm *.o

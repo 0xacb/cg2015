@@ -10,4 +10,5 @@ class World {
 		~World();
 		vector<Object> objects;
 		void load(const char* path);
+		void render();
 };

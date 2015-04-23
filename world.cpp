@@ -9,3 +9,9 @@ void World::load(const char* path) {
 	obj.load();
 	objects.push_back(obj);
 }
+
+void World::render() {
+	for (int i=0;i<(signed)objects.size();i++) {
+		objects[i].render();
+	}
+}
