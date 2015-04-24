@@ -14,13 +14,6 @@
 
 #define WINDOW_NAME "GG 2015"
 
-#define SKY_FRONT 0
-#define SKY_RIGHT 1
-#define SKY_LEFT 2
-#define SKY_BACK 3
-#define SKY_UP 4
-#define SKY_DOWN 5
-
 using namespace std;
 
 GLint WINDOW_RESOLUTION_X = 700;
@@ -28,17 +21,20 @@ GLint WINDOW_RESOLUTION_Y = 500;
 GLint WINDOW_MID_X = WINDOW_RESOLUTION_X/2;
 GLint WINDOW_MID_Y = WINDOW_RESOLUTION_Y/2;
 
+double WORLD_SIZE = 1000;
+
+bool AUTOMATIC_RESOLUTION = true;
+bool FULLSCREEN = true;
 GLint MULTISAMPLING_LEVEL = 4;
+GLint FIELD_OF_VIEW = 90;
+
+GLFWwindow* window;
+map<int, bool> keyState;
 int nFrames = 0;
 
 World world;
-GLFWwindow* window;
 
-map<int, bool> keyState;
-
-//TODO CFG file
-
-/*Inputs*/
+/*Input*/
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (key == GLFW_KEY_ESCAPE) {
 		exit(EXIT_SUCCESS);
@@ -73,7 +69,7 @@ void initG(void) {
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(100, 1.0*WINDOW_RESOLUTION_X/WINDOW_RESOLUTION_Y, 0.1, 100);
+	gluPerspective(FIELD_OF_VIEW, 1.0*WINDOW_RESOLUTION_X/WINDOW_RESOLUTION_Y, 0.1, WORLD_SIZE*2);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -85,11 +81,13 @@ void initWindow() {
 	glfwWindowHint(GLFW_SAMPLES, MULTISAMPLING_LEVEL);
 
 	/*Automatic resolution*/
-	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	WINDOW_RESOLUTION_X = mode->width;
-	WINDOW_RESOLUTION_Y = mode->height;
+	if (AUTOMATIC_RESOLUTION) {
+		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		WINDOW_RESOLUTION_X = mode->width;
+		WINDOW_RESOLUTION_Y = mode->height;
+	}
 
-	window = glfwCreateWindow(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y, WINDOW_NAME, glfwGetPrimaryMonitor(), NULL); //glfwGetPrimaryMonitor() - fullscreen
+	window = glfwCreateWindow(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y, WINDOW_NAME, FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL); //glfwGetPrimaryMonitor() - fullscreen
 	if (!window)
 		exit(EXIT_FAILURE);
 	glfwMakeContextCurrent(window);
@@ -118,8 +116,8 @@ void mainLoop() {
 		}
 
 		/*Draw*/
-		world.skybox.draw(50);
-		world.skybox.renderSun();
+		world.skybox.draw(world.size);
+		world.skybox.renderSun(delta);
 		world.render();
 		world.camera.calcMovement(keyState);
 		world.camera.move(delta);
@@ -136,6 +134,7 @@ int main(int argc, char **argv) {
 	initInputs();
 	initG();
 
+	world.size = WORLD_SIZE;
 	world.load("obj/dei.obj");
 	world.skybox.load("skyboxes/bluesky1");
 

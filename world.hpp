@@ -13,6 +13,7 @@ class World {
 		Camera camera;
 		Skybox skybox;
 		vector<Object> objects;
+		double size;
 		void load(const char* path);
 		void render();
 };
