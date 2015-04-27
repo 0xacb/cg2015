@@ -17,48 +17,31 @@
 #include <map>
 
 #include "world.hpp"
+#include "keyboard.hpp"
 
 #define WINDOW_NAME "GG 2015"
 
-#define KEY_UP 87
-#define KEY_DOWN 83
-#define KEY_LEFT 65
-#define KEY_RIGHT 68
-
-#define PI atan(1) * 4
-#define TO_RADS(deg) deg*PI/180
-
 using namespace std;
 
-GLint WINDOW_WIDTH = 700;
-GLint WINDOW_HEIGHT = 500;
-GLint WINDOW_MID_X = WINDOW_WIDTH /2;
-GLint WINDOW_MID_Y = WINDOW_HEIGHT/2;
+GLint WINDOW_RESOLUTION_X = 700;
+GLint WINDOW_RESOLUTION_Y = 500;
+GLint WINDOW_MID_X = WINDOW_RESOLUTION_X/2;
+GLint WINDOW_MID_Y = WINDOW_RESOLUTION_Y/2;
 
-GLint MULTISAMPLING_LEVEL = 2;
+double WORLD_SIZE = 1000;
 
-World world;
+bool AUTOMATIC_RESOLUTION = true;
+bool FULLSCREEN = true;
+GLint MULTISAMPLING_LEVEL = 4;
+GLint FIELD_OF_VIEW = 90;
 
 GLFWwindow* window;
 map<int, bool> keyState;
+int nFrames = 0;
 
-GLfloat camSpeed = 2.5f;
-GLfloat mouseVSensitivity = 10.0f;
-GLfloat mouseHSensitivity = 10.0f;
-GLfloat camX = 0, camY = 1.5, camZ = -5;
-GLfloat vcamX = 1, vcamY = 1, vcamZ = 1;
-GLfloat rcamX = 0, rcamY = 0, rcamZ = 0;
+World world;
 
-void addLights() {
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	GLfloat lightpos[4] = {0.0, 15.0, -10.0, 1.0};
-	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
-}
-
-/*Inputs*/
+/*Input*/
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (key == GLFW_KEY_ESCAPE) {
 		exit(EXIT_SUCCESS);
@@ -74,22 +57,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow *window, GLdouble mouseX, GLdouble mouseY) {
     int horizMovement = mouseX - WINDOW_MID_X;
     int vertMovement  = mouseY - WINDOW_MID_Y;
-
-    rcamX += vertMovement*mouseVSensitivity/1000;
-    rcamY += horizMovement*mouseHSensitivity/1000;
-
-    if (rcamX < -90.0f) {
-        rcamX = -90.0f;
-    }
-    if (rcamX > 90.0f)  {
-        rcamX = 90.0f;
-    }
-	if (rcamY < -180.0f) {
-        rcamY += 360.0f;
-    }
-    if (rcamY > 180.0f) {
-        rcamY -= 360.0f;
-    }
+	world.camera.rotate(horizMovement, vertMovement);
     glfwSetCursorPos(window, WINDOW_MID_X, WINDOW_MID_Y);
 }
 
@@ -104,22 +72,29 @@ void initInputs() {
 void initG(void) {
 	glClearColor(0, 0, 0, 1);
 
-	glViewport(0,0, WINDOW_WIDTH, WINDOW_HEIGHT);
+	glViewport(0,0, WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(100, 1.0*WINDOW_WIDTH/WINDOW_HEIGHT, 0.1, 100);
+	gluPerspective(FIELD_OF_VIEW, 1.0*WINDOW_RESOLUTION_X/WINDOW_RESOLUTION_Y, 0.1, WORLD_SIZE*2);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(camX, camY, camZ, 0,0,0, 0,1,0);
 }
 
 void initWindow() {
 	if (!glfwInit())
 		exit(EXIT_FAILURE);
 	glfwWindowHint(GLFW_SAMPLES, MULTISAMPLING_LEVEL);
-	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_NAME, NULL, NULL); //glfwGetPrimaryMonitor() - fullscreen
+
+	/*Automatic resolution*/
+	if (AUTOMATIC_RESOLUTION) {
+		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		WINDOW_RESOLUTION_X = mode->width;
+		WINDOW_RESOLUTION_Y = mode->height;
+	}
+
+	window = glfwCreateWindow(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y, WINDOW_NAME, FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL); //glfwGetPrimaryMonitor() - fullscreen
 	if (!window)
 		exit(EXIT_FAILURE);
 	glfwMakeContextCurrent(window);
@@ -128,62 +103,6 @@ void initWindow() {
 }
 
 /*Main Loop*/
-void calculateCameraMovement() {
-	float camMovementXComponent = 0.0f;
-	float camMovementYComponent = 0.0f;
-	float camMovementZComponent = 0.0f;
-
-	if (keyState[KEY_UP]) {
-		float pitchFactor = cos(TO_RADS(rcamX));
-		camMovementXComponent += (camSpeed * float(sin(TO_RADS(rcamY)))) * pitchFactor;
-		camMovementYComponent += camSpeed * float(sin(TO_RADS(rcamX))) * -1.0f;
-		float yawFactor = float(cos(TO_RADS(rcamX)));
-		camMovementZComponent += ( camSpeed * float(cos(TO_RADS(rcamY))) * -1.0f ) * yawFactor;
-	}
-
-	if (keyState[KEY_DOWN]) {
-		float pitchFactor = cos(TO_RADS(rcamX));
-		camMovementXComponent += (camSpeed * float(sin(TO_RADS(rcamY))) * -1.0f) * pitchFactor;
-		camMovementYComponent += camSpeed * float(sin(TO_RADS(rcamX)));
-		float yawFactor = float(cos(TO_RADS(rcamX)));
-		camMovementZComponent += (camSpeed * float(cos(TO_RADS(rcamY)))) * yawFactor;
-	}
-
-	if (keyState[KEY_LEFT]) {
-		float yRotRad = TO_RADS(rcamY);
-		camMovementXComponent += -camSpeed * float(cos(yRotRad));
-		camMovementZComponent += -camSpeed * float(sin(yRotRad));
-	}
-
-	if (keyState[KEY_RIGHT]) {
-		float yRotRad = TO_RADS(rcamY);
-		camMovementXComponent += camSpeed * float(cos(yRotRad));
-		camMovementZComponent += camSpeed * float(sin(yRotRad));
-	}
-
-	vcamX = camMovementXComponent;
-	vcamY = camMovementYComponent;
-	vcamZ = camMovementZComponent;
-
-	if (vcamX > camSpeed) vcamX = camSpeed;
-	else if (vcamX < -camSpeed) vcamX = -camSpeed;
-	if (vcamY > camSpeed) vcamY = camSpeed;
-	else if (vcamY < -camSpeed) vcamY = -camSpeed;
-	if (vcamZ > camSpeed) vcamZ = camSpeed;
-	else if (vcamZ < -camSpeed) vcamZ = -camSpeed;
-}
-
-void moveCamera(double delta) {
-	camX += vcamX*delta;
-	camY += vcamY*delta;
-	camZ += vcamZ*delta;
-	glLoadIdentity();
-	glRotatef(rcamX, 1.0f, 0.0f, 0.0f);
-    glRotatef(rcamY, 0.0f, 1.0f, 0.0f);
-    glTranslatef(-camX, -camY, -camZ);
-}
-
-int nFrames = 0;
 void mainLoop() {
 	double oldTime = glfwGetTime(), oldFrameTime = glfwGetTime();
 	double currentTime, delta, deltaFrame;
@@ -204,9 +123,11 @@ void mainLoop() {
 		}
 
 		/*Draw*/
+		world.skybox.draw(world.size);
+		world.skybox.renderSun(delta);
 		world.render();
-		calculateCameraMovement();
-		moveCamera(camSpeed*delta);
+		world.camera.calcMovement(keyState);
+		world.camera.move(delta);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -220,8 +141,9 @@ int main(int argc, char **argv) {
 	initInputs();
 	initG();
 
+	world.size = WORLD_SIZE;
 	world.load("obj/dei.obj");
-	addLights();
+	world.skybox.load("skyboxes/bluesky1");
 
 	mainLoop();
 	exit(EXIT_FAILURE);
