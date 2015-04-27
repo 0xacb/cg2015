@@ -1,4 +1,9 @@
-#include <GL/gl.h>
+#ifdef __APPLE__
+	#include <OpenGL/gl.h>
+#else
+	#include <GL/gl.h>
+#endif
+
 #include "object.hpp"
 
 #define MAXLEN 100
