@@ -1,7 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <GL/gl.h>
+
+#ifdef __APPLE__
+	#include <OpenGL/gl.h>
+#else
+	#include <GL/gl.h>
+#endif
+
 #include <GLFW/glfw3.h>
 
 static void reverse(void* x,const int n) {

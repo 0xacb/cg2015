@@ -1,4 +1,9 @@
-#include <GL/gl.h>
+#ifdef __APPLE__
+	#include <OpenGL/gl.h>
+#else
+	#include <GL/gl.h>
+#endif
+
 #include <math.h>
 #include <map>
 #include "camera.hpp"
