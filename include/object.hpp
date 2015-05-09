@@ -1,3 +1,6 @@
+#ifndef OBJECT_HPP
+#define OBJECT_HPP
+
 #include <stdio.h>
 #include <vector>
 #include "structs.hpp"
@@ -13,5 +16,7 @@ class Object {
 		vector <point> normals;
 		vector <face> faces;
 		bool load();
-		void render();
+		virtual void render();
 };
+
+#endif
