@@ -143,6 +143,7 @@ int main(int argc, char **argv) {
 
 	world.size = WORLD_SIZE;
 	world.load("obj/dei.obj");
+	world.load("obj/monkey.obj");
 	world.skybox.load("skyboxes/bluesky1");
 
 	mainLoop();

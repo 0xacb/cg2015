@@ -9,9 +9,9 @@ void World::load(const char* path) {
 	obj->load();
 	objects.push_back(obj);
 
-	Sphere *sphere = new Sphere("obj/monkey.obj");
+	/*Sphere *sphere = new Sphere("obj/monkey.obj");
 	sphere->load();
-	objects.push_back(sphere);
+	objects.push_back(sphere);*/
 }
 
 void World::render() {

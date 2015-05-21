@@ -11,4 +11,5 @@ struct point {
 struct face {
 	vector <point> points;
 	vector <point> normals;
+	vector <point> uvs;
 };
