@@ -144,7 +144,7 @@ int main(int argc, char **argv) {
 	world.size = WORLD_SIZE;
 	world.load("obj/dust2.obj");
 	//world.load("obj/dei.obj");
-	world.load("obj/monkey.obj");
+	world.load("obj/sphere.obj");
 	world.skybox.load("skyboxes/bluesky1");
 
 	mainLoop();
