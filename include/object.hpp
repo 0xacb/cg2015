@@ -32,6 +32,7 @@ class Object {
 		bool load();
 		bool uvEnabled;
 		virtual void render();
+		GLdouble x, y, z;
 };
 
 #endif

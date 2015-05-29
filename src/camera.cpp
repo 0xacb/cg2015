@@ -7,7 +7,6 @@
 #include <math.h>
 #include <map>
 #include "camera.hpp"
-#include "keyboard.hpp"
 #include "math.hpp"
 
 Camera::Camera(){}
@@ -48,7 +47,11 @@ void Camera::calcMovement(map<int, bool> keyState) {
 	float camMovementYComponent = 0.0f;
 	float camMovementZComponent = 0.0f;
 
-	if (keyState[KEY_UP]) {
+	if (keyState[GLFW_KEY_SPACE]) {
+		camMovementYComponent += 3;
+	}
+
+	if (keyState[GLFW_KEY_W]) {
 		float pitchFactor = cos(TO_RADS(rcamX));
 		camMovementXComponent += (camSpeed * float(sin(TO_RADS(rcamY)))) * pitchFactor;
 		camMovementYComponent += camSpeed * float(sin(TO_RADS(rcamX))) * -1.0f;
@@ -56,7 +59,7 @@ void Camera::calcMovement(map<int, bool> keyState) {
 		camMovementZComponent += ( camSpeed * float(cos(TO_RADS(rcamY))) * -1.0f ) * yawFactor;
 	}
 
-	if (keyState[KEY_DOWN]) {
+	if (keyState[GLFW_KEY_S]) {
 		float pitchFactor = cos(TO_RADS(rcamX));
 		camMovementXComponent += (camSpeed * float(sin(TO_RADS(rcamY))) * -1.0f) * pitchFactor;
 		camMovementYComponent += camSpeed * float(sin(TO_RADS(rcamX)));
@@ -64,13 +67,13 @@ void Camera::calcMovement(map<int, bool> keyState) {
 		camMovementZComponent += (camSpeed * float(cos(TO_RADS(rcamY)))) * yawFactor;
 	}
 
-	if (keyState[KEY_LEFT]) {
+	if (keyState[GLFW_KEY_A]) {
 		float yRotRad = TO_RADS(rcamY);
 		camMovementXComponent += -camSpeed * float(cos(yRotRad));
 		camMovementZComponent += -camSpeed * float(sin(yRotRad));
 	}
 
-	if (keyState[KEY_RIGHT]) {
+	if (keyState[GLFW_KEY_D]) {
 		float yRotRad = TO_RADS(rcamY);
 		camMovementXComponent += camSpeed * float(cos(yRotRad));
 		camMovementZComponent += camSpeed * float(sin(yRotRad));

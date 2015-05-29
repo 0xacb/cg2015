@@ -18,6 +18,6 @@ class World {
 		Skybox skybox;
 		vector<Object*> objects;
 		double size;
-		void load(const char* path);
+		void load(const char* path, GLdouble x, GLdouble y, GLdouble z);
 		void render();
 };

@@ -17,7 +17,6 @@
 #include <map>
 
 #include "world.hpp"
-#include "keyboard.hpp"
 
 #define WINDOW_NAME "GG 2015"
 
@@ -143,9 +142,8 @@ int main(int argc, char **argv) {
 	initG();
 
 	world.size = WORLD_SIZE;
-	world.load("obj/dust2.obj");
-	//world.load("obj/dei.obj");
-	world.load("obj/sphere.obj");
+	world.load("obj/dust2.obj", 0, 0, 0);
+	world.load("obj/sphere.obj", 0, 5, 0);
 	world.skybox.load("skyboxes/bluesky1");
 
 	mainLoop();

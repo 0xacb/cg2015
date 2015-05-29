@@ -6,6 +6,7 @@
 
 #include <math.h>
 #include <map>
+#include <GLFW/glfw3.h>
 
 using namespace std;
 

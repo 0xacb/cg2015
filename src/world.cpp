@@ -4,10 +4,14 @@ World::World(){}
 
 World::~World(){}
 
-void World::load(const char* path) {
+void World::load(const char* path, GLdouble x, GLdouble y, GLdouble z) {
 	Object *obj = new Object(path);
 	obj->load();
 	objects.push_back(obj);
+
+	obj->x = x;
+	obj->y = y;
+	obj->z = z;
 
 	/*Sphere *sphere = new Sphere("obj/monkey.obj");
 	sphere->load();
@@ -16,6 +20,11 @@ void World::load(const char* path) {
 
 void World::render() {
 	for (int i=0;i<(signed)objects.size();i++) {
+		glPushMatrix();
+
+		glTranslatef(objects[i]->x, objects[i]->y, objects[i]->z);
 		objects[i]->render();
+
+		glPopMatrix();
 	}
 }
