@@ -65,7 +65,7 @@ void initInputs() {
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetCursorPos(window, WINDOW_MID_X, WINDOW_MID_Y);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 /*Window*/
@@ -94,7 +94,8 @@ void initWindow() {
 		WINDOW_RESOLUTION_Y = mode->height;
 	}
 
-	window = glfwCreateWindow(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y, WINDOW_NAME, FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL); //glfwGetPrimaryMonitor() - fullscreen
+	window = glfwCreateWindow(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y, WINDOW_NAME, FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
+   //glfwGetPrimaryMonitor() - fullscreen
 	if (!window)
 		exit(EXIT_FAILURE);
 	glfwMakeContextCurrent(window);
