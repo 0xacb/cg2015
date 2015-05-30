@@ -54,8 +54,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 
 void mouse_callback(GLFWwindow *window, GLdouble mouseX, GLdouble mouseY) {
-    int horizMovement = mouseX - WINDOW_MID_X;
-    int vertMovement  = mouseY - WINDOW_MID_Y;
+    int horizMovement = (mouseX - WINDOW_MID_X) * 2;
+    int vertMovement  = (mouseY - WINDOW_MID_Y) * 2;
 	world.camera.rotate(horizMovement, vertMovement);
     glfwSetCursorPos(window, WINDOW_MID_X, WINDOW_MID_Y);
 }

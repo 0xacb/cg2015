@@ -12,10 +12,6 @@ void World::load(const char* path, GLdouble x, GLdouble y, GLdouble z) {
 	obj->x = x;
 	obj->y = y;
 	obj->z = z;
-
-	/*Sphere *sphere = new Sphere("obj/monkey.obj");
-	sphere->load();
-	objects.push_back(sphere);*/
 }
 
 void World::render() {
