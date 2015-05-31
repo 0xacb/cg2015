@@ -143,7 +143,14 @@ int main(int argc, char **argv) {
 
 	world.size = WORLD_SIZE;
 	world.load("obj/dust2.obj", 0, 0, 0);
-	world.load("obj/sphere.obj", 0, 5, 0);
+
+  for (int x = 0; x < 5; x++) {
+    for (int z = 0; z < 5; z++) {
+      //world.load("obj/sphere.obj", x * 3, 5, z * 3);
+      world.load(new Sphere(), x * 3, 5, z * 3);
+    }
+  }
+
 	world.skybox.load("skyboxes/bluesky1");
 
 	mainLoop();

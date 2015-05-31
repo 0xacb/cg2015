@@ -2,6 +2,7 @@
 #define SPHERE_HPP
 
 #include <stdio.h>
+#include <gl/glut.h>
 
 #include "object.hpp"
 
@@ -15,7 +16,7 @@ using namespace std;
 
 class Sphere : public Object {
   public:
-		explicit Sphere(const char* path) : Object(path) { }
+		Sphere();
     void render();
 };
 

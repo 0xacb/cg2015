@@ -21,7 +21,7 @@ using namespace std;
 
 class Object {
 	public:
-		Object(const char* path);
+		Object();
 		~Object();
 		const char* path;
 		vector <point> verts;

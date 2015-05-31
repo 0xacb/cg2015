@@ -9,9 +9,7 @@
 
 using namespace std;
 
-Object::Object(const char* path) {
-	this->path = path;
-}
+Object::Object() { }
 
 Object::~Object(){}
 
@@ -98,7 +96,7 @@ void Object::render() {
 			glNormal3f(this->faces[i].normals[2].x, this->faces[i].normals[2].y, this->faces[i].normals[2].z);
 			if ((this->texture) && (this->uvEnabled)) glTexCoord2f(this->faces[i].uvs[2].x, this->faces[i].uvs[2].y);
 			glVertex3f(this->faces[i].points[2].x, this->faces[i].points[2].y, this->faces[i].points[2].z);
-			
+
 		}
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
