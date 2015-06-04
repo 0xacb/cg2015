@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <vector>
-#include <gl/glut.h>
+#include <GL/glut.h>
 
 #include "camera.hpp"
 #include "skybox.hpp"

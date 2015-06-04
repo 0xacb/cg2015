@@ -2,7 +2,7 @@
 #define SPHERE_HPP
 
 #include <stdio.h>
-#include <gl/glut.h>
+#include <GL/glut.h>
 
 #include "object.hpp"
 
