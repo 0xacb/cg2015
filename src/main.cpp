@@ -142,11 +142,11 @@ int main(int argc, char **argv) {
   initG();
 
   world.size = WORLD_SIZE;
-  world.load("obj/dust2.obj", 0, 0, 0);
+  world.load("obj/box.obj", 0, 0, 0);
 
-  for (int x = 0; x < 5; x++) {
-    for (int z = 0; z < 5; z++) {
-      world.load(new Sphere(), x * 3, 5, z * 3);
+  for (GLfloat x = 0; x < 5; x++) {
+    for (GLfloat z = 0; z < 5; z++) {
+      world.load(new Sphere(x * 6, 0, z * 6, 2));
     }
   }
 
