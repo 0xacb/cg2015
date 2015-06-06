@@ -17,10 +17,9 @@ using namespace std;
 
 class Sphere : public Object {
 	private:
-		GLfloat radius;
-		GLfloat vx, vy, vz;
-
   public:
+		GLfloat vx, vy, vz;
+		GLfloat radius;
 		Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius);
 		GLfloat color[4] = {0.0, 0.2, 1.0, 1.0};
 		void update();

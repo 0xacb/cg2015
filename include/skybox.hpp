@@ -23,7 +23,7 @@ class Skybox {
 		~Skybox();
 		GLuint textures[6];
 		float rSun = 0, sunX = 0, sunY = 400, sunZ = 0;
-		float dayDuration = 60; //seconds
+		float dayDuration = 120; //seconds
 		bool load(const char* path);
 		void draw(double dist);
 		void renderSun(double delta);

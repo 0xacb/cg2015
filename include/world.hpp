@@ -14,6 +14,9 @@ class World {
 		World();
 		~World();
 
+		GLfloat cubeSide = 50.0f;
+		GLfloat cubeHeight = 40.0f;
+
 		Camera camera;
 
 		Skybox skybox;
