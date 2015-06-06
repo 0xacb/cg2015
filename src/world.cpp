@@ -16,18 +16,13 @@ void World::load(const char* path, GLdouble x, GLdouble y, GLdouble z, GLfloat o
 	obj->opacity = opacity;
 }
 
-void World::load(Object *obj, GLdouble x, GLdouble y, GLdouble z, GLfloat opacity) {
+void World::load(Object *obj) {
 	obj->load();
 	objects.push_back(obj);
-
-	obj->x = x;
-	obj->y = y;
-	obj->z = z;
-	obj->opacity = opacity;
 }
 
 void World::render() {
-	for (int i=0;i<(signed)objects.size();i++) {
+	for (int i = 0; i<(signed)objects.size(); i++) {
 		glPushMatrix();
 			glTranslatef(objects[i]->x, objects[i]->y, objects[i]->z);
 			objects[i]->render();

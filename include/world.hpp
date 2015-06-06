@@ -20,6 +20,7 @@ class World {
 		vector<Object*> objects;
 		double size;
 		void load(const char* path, GLdouble x, GLdouble y, GLdouble z, GLfloat opacity);
-		void load(Object *obj, GLdouble x, GLdouble y, GLdouble z, GLfloat opacity);
+		void load(const char* path, GLdouble x, GLdouble y, GLdouble z);
+		void load(Object *obj);
 		void render();
 };

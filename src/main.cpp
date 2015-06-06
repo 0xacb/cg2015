@@ -145,15 +145,16 @@ int main(int argc, char **argv) {
   initG();
 
   world.size = WORLD_SIZE;
-  world.load("obj/box.obj", 0, 0, 0, 0.6);
-  world.load("obj/terrain.obj", 0, 0, 0, 0.6);
-  world.skybox.load("skyboxes/bluesky1");
-  for (int x = 0; x < 5; x++) {
-    for (int z = 0; z < 5; z++) {
-      world.load(new Sphere(), x * 3, 5, z * 3, 1.0);
+
+  for (GLfloat x = 0; x < 5; x++) {
+    for (GLfloat z = 0; z < 5; z++) {
+      world.load(new Sphere(x * 6, 0, z * 6, 2));
     }
   }
 
+  world.load("obj/terrain.obj", 0, 0, 0, 0.6);
+  world.load("obj/box.obj", 0, 0, 0, 0.6);
+  world.skybox.load("skyboxes/bluesky1");
 
   mainLoop();
   exit(EXIT_FAILURE);

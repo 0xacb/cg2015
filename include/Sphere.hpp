@@ -15,9 +15,13 @@
 using namespace std;
 
 class Sphere : public Object {
+	private:
+		GLfloat radius;
+
   public:
-		Sphere();
+		Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius);
     void render();
+		bool isColliding(Sphere *otherSphere);
 };
 
 #endif
