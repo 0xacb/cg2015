@@ -16,6 +16,7 @@
 #include <vector>
 #include <map>
 
+#include "main.hpp"
 #include "world.hpp"
 
 #define WINDOW_NAME "GG 2015"
@@ -157,9 +158,10 @@ int main(int argc, char **argv) {
 
   world.size = WORLD_SIZE;
 
-  for (GLfloat x = 0; x < 5; x++) {
-    for (GLfloat z = 0; z < 5; z++) {
-      world.load(new Sphere(x * 6, 0, z * 6, 2));
+  for (GLfloat x = 0; x < 3; x++) {
+    for (GLfloat z = 0; z < 3; z++) {
+      string type("sphere");
+      world.load(new Sphere(x * 6, 0, z * 6, 2), type);
     }
   }
 
