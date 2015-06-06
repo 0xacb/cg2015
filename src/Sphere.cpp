@@ -10,7 +10,10 @@ Sphere::Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius) {
 	vy = randomFloat(-0.1, 0.1);
 	vz = randomFloat(-0.1, 0.1);
 
-	//color[0] =
+	color[0] = randomFloat(0.0, 1.0);
+	color[1] = randomFloat(0.0, 1.0);
+	color[2] = randomFloat(0.0, 1.0);
+	color[3] = 1.0f;
 }
 
 void Sphere::update() {

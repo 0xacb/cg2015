@@ -158,8 +158,8 @@ int main(int argc, char **argv) {
 
   world.size = WORLD_SIZE;
 
-  for (GLfloat x = 0; x < 3; x++) {
-    for (GLfloat z = 0; z < 3; z++) {
+  for (GLfloat x = 0; x < 6; x++) {
+    for (GLfloat z = 0; z < 6; z++) {
       string type("sphere");
       world.load(new Sphere(x * 6, 0, z * 6, 2), type);
     }

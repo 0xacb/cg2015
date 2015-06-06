@@ -36,10 +36,16 @@ void World::update() {
 	for (int i = 0; i < (int) spheres.size(); i++) {
 		for (int u = i + 1; u < (int) spheres.size(); u++) {
 			if (spheres[i]->isColliding(spheres[u])) {
-				GLfloat redColor[4] = {1.0, 0.0, 0.0, 1.0};
+				//GLfloat redColor[4] = {1.0, 0.0, 0.0, 1.0};
 
-				memcpy(spheres[i]->color, redColor, sizeof(redColor));
-				memcpy(spheres[u]->color, redColor, sizeof(redColor));
+				GLfloat newColor[4] = {(spheres[i]->color[0] + spheres[i]->color[0]) / 2,
+													  (spheres[i]->color[1] + spheres[i]->color[1]) / 2,
+					    							 (spheres[i]->color[2] + spheres[i]->color[2]) / 2,
+														1.0f};
+
+														memcpy(spheres[i]->color, newColor, sizeof(newColor));
+														memcpy(spheres[u]->color, newColor, sizeof(newColor));
+
 			}
 		}
 
