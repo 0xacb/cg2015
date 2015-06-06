@@ -8,6 +8,7 @@ Sphere::Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius) {
 }
 
 void Sphere::update() {
+	x += 0.1f;
 }
 
 void Sphere::render() {
