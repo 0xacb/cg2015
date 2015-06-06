@@ -105,8 +105,8 @@ void Skybox::renderSun(double delta) {
   rSun += delta*360/dayDuration;
   rSun = fmod(rSun, 360);
   GLfloat lightAmbient[4]= {1.0, 1.0, 1.0, 1.0};
-  GLfloat lightPosition[4] = {sunX, sunY, sunZ, 1.0};
-  GLfloat lightDiffuse[4]= {1.0, 1.0, 1.0, 100.0};
+  GLfloat lightPosition[4] = {sunX, sunY, sunZ, 0.0};
+  GLfloat lightDiffuse[4]= {1.0, 1.0, 1.0, 1.0};
   glLightfv(GL_LIGHT1, GL_AMBIENT, lightAmbient);
   glLightfv(GL_LIGHT1, GL_DIFFUSE, lightDiffuse);
   glLightfv(GL_LIGHT1, GL_POSITION, lightPosition);

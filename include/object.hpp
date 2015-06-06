@@ -33,6 +33,7 @@ class Object {
 		bool uvEnabled;
 		virtual void render();
 		GLdouble x, y, z;
+		GLfloat opacity = 1.0;
 };
 
 #endif

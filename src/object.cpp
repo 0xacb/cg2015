@@ -85,6 +85,10 @@ void Object::render() {
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, this->texture);
 	}
+	if (this->opacity < 1.0) {
+		GLfloat color[4] = {1.0, 1.0, 1.0, this->opacity};
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, color);
+	}
 	glBegin(GL_TRIANGLES);
 		for (i=0;i<(signed)this->faces.size();i++) {
 			glNormal3f(this->faces[i].normals[0].x, this->faces[i].normals[0].y, this->faces[i].normals[0].z);
