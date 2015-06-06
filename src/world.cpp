@@ -39,34 +39,34 @@ void World::update() {
 				//GLfloat redColor[4] = {1.0, 0.0, 0.0, 1.0};
 
 				GLfloat newColor[4] = {(spheres[i]->color[0] + spheres[i]->color[0]) / 2,
-													  (spheres[i]->color[1] + spheres[i]->color[1]) / 2,
-					    							 (spheres[i]->color[2] + spheres[i]->color[2]) / 2,
-														1.0f};
+					(spheres[i]->color[1] + spheres[i]->color[1]) / 2,
+					(spheres[i]->color[2] + spheres[i]->color[2]) / 2,
+					1.0f};
 
-														memcpy(spheres[i]->color, newColor, sizeof(newColor));
-														memcpy(spheres[u]->color, newColor, sizeof(newColor));
+					memcpy(spheres[i]->color, newColor, sizeof(newColor));
+					memcpy(spheres[u]->color, newColor, sizeof(newColor));
 
+				}
+			}
+
+			if (fabs(spheres[i]->x) >= cubeSide || fabs(spheres[i]->y) + spheres[i]->radius >= cubeHeight || fabs(spheres[i]->z) >= cubeSide) {
+				if (i == 0) printf("SPHERE COLLIDING\n");
+
+				spheres[i]->vx = -spheres[i]->vx;
+				spheres[i]->vy = -spheres[i]->vy;
+				spheres[i]->vz = -spheres[i]->vz;
 			}
 		}
 
-		if (fabs(spheres[i]->x) >= cubeSide || fabs(spheres[i]->y) + spheres[i]->radius >= cubeHeight || fabs(spheres[i]->z) >= cubeSide) {
-			if (i == 0) printf("SPHERE COLLIDING\n");
-
-			spheres[i]->vx = -spheres[i]->vx;
-			spheres[i]->vy = -spheres[i]->vy;
-			spheres[i]->vz = -spheres[i]->vz;
-		}
+		GLfloat yellowColor[4] = {0.0, 1.0, 1.0, 1.0};
+		memcpy(spheres[0]->color, yellowColor, sizeof(yellowColor));
 	}
 
-	GLfloat yellowColor[4] = {0.0, 1.0, 1.0, 1.0};
-	memcpy(spheres[0]->color, yellowColor, sizeof(yellowColor));
-}
-
-void World::render() {
-	for (int i = 0; i<(signed)objects.size(); i++) {
-		glPushMatrix();
+	void World::render() {
+		for (int i = 0; i<(signed)objects.size(); i++) {
+			glPushMatrix();
 			glTranslatef(objects[i]->x, objects[i]->y, objects[i]->z);
 			objects[i]->render();
-		glPopMatrix();
+			glPopMatrix();
+		}
 	}
-}
