@@ -31,9 +31,9 @@ void Sphere::render() {
 };
 
 bool Sphere::isColliding(Sphere *otherSphere) {
-	GLfloat dx = abs(x - otherSphere->x);
-	GLfloat dy = abs(y - otherSphere->y);
-	GLfloat dz = abs(z - otherSphere->z);
+	GLfloat dx = fabs(x - otherSphere->x);
+	GLfloat dy = fabs(y - otherSphere->y);
+	GLfloat dz = fabs(z - otherSphere->z);
 
 	float distance = dx * dx + dy * dy + dz * dz;
 	float minDistance = radius + otherSphere->radius;

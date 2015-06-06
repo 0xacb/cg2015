@@ -2,15 +2,17 @@
 #define SPHERE_HPP
 
 #include <stdio.h>
-#include <GL/glut.h>
+#include <math.h>
 
 #include "main.hpp"
 #include "object.hpp"
 
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
+	#include <OpenGL/glut.h>
 #else
 	#include <GL/gl.h>
+	#include <GL/glut.h>
 #endif
 
 using namespace std;
