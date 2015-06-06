@@ -30,9 +30,6 @@ void World::update() {
 		objects[i]->update();
 	}
 
-	printf("%f\n", spheres[0]->y);
-	printf("%f %f\n", fabs(spheres[0]->y), cubeHeight);
-
 	for (int i = 0; i < (int) spheres.size(); i++) {
 		for (int u = i + 1; u < (int) spheres.size(); u++) {
 			if (spheres[i]->isColliding(spheres[u])) {
@@ -57,9 +54,6 @@ void World::update() {
 				spheres[i]->vz = -spheres[i]->vz;
 			}
 		}
-
-		GLfloat yellowColor[4] = {0.0, 1.0, 1.0, 1.0};
-		memcpy(spheres[0]->color, yellowColor, sizeof(yellowColor));
 	}
 
 	void World::render() {
