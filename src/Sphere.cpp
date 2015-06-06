@@ -20,7 +20,6 @@ void Sphere::update() {
 	x += vx;
 	y += vy;
 	z += vz;
-
 }
 
 void Sphere::render() {
@@ -31,9 +30,9 @@ void Sphere::render() {
 };
 
 bool Sphere::isColliding(Sphere *otherSphere) {
-	GLfloat dx = fabs(x - otherSphere->x);
-	GLfloat dy = fabs(y - otherSphere->y);
-	GLfloat dz = fabs(z - otherSphere->z);
+	GLfloat dx = abs(x - otherSphere->x);
+	GLfloat dy = abs(y - otherSphere->y);
+	GLfloat dz = abs(z - otherSphere->z);
 
 	float distance = dx * dx + dy * dy + dz * dz;
 	float minDistance = radius + otherSphere->radius;
