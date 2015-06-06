@@ -47,8 +47,6 @@ void World::update() {
 			}
 
 			if (fabs(spheres[i]->x) >= cubeSide || fabs(spheres[i]->y) + spheres[i]->radius >= cubeHeight || fabs(spheres[i]->z) >= cubeSide) {
-				if (i == 0) printf("SPHERE COLLIDING\n");
-
 				spheres[i]->vx = -spheres[i]->vx;
 				spheres[i]->vy = -spheres[i]->vy;
 				spheres[i]->vz = -spheres[i]->vz;
