@@ -21,5 +21,6 @@ class World {
 		double size;
 		void load(const char* path, GLdouble x, GLdouble y, GLdouble z);
 		void load(Object *obj);
+		void update();
 		void render();
 };

@@ -20,6 +20,7 @@ class Sphere : public Object {
 
   public:
 		Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius);
+		void update();
     void render();
 		bool isColliding(Sphere *otherSphere);
 };

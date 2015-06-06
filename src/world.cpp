@@ -20,6 +20,12 @@ void World::load(Object *obj) {
 	objects.push_back(obj);
 }
 
+void World::update() {
+	for (int i = 0; i < (int) objects.size(); i++) {
+		objects[i]->update();
+	}
+}
+
 void World::render() {
 	for (int i = 0; i<(signed)objects.size(); i++) {
 		glPushMatrix();

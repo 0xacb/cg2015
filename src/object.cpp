@@ -79,6 +79,10 @@ bool Object::load() {
 	return true;
 }
 
+void Object::update() {
+	
+}
+
 void Object::render() {
 	int i;
 	if (this->texture) {

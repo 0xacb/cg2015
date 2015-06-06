@@ -114,13 +114,16 @@ void mainLoop() {
     delta = (currentTime-oldTime);
     deltaFrame = (currentTime-oldFrameTime);
     nFrames++;
-    if (deltaFrame >= 1.0) {
 
+    if (deltaFrame >= 1.0) {
       printf("\r%d FPS", nFrames);
       fflush(stdout);
       nFrames = 0;
       oldFrameTime = currentTime;
     }
+
+    /* Update scene elements */
+    world.update();
 
     /*Draw*/
     world.skybox.draw(world.size);

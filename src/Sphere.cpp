@@ -9,6 +9,9 @@ Sphere::Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius) {
 	radius = _radius;
 }
 
+void Sphere::update() {
+}
+
 void Sphere::render() {
 	printf("rendering %f\n", x);
 

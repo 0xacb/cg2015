@@ -31,6 +31,7 @@ class Object {
 		GLuint texture;
 		bool load();
 		bool uvEnabled;
+		virtual void update();
 		virtual void render();
 		GLdouble x, y, z;
 };
