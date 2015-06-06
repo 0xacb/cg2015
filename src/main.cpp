@@ -77,6 +77,9 @@ void initG(void) {
   glLoadIdentity();
   gluPerspective(FIELD_OF_VIEW, 1.0*WINDOW_RESOLUTION_X/WINDOW_RESOLUTION_Y, 0.1, WORLD_SIZE*2);
 
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }
@@ -145,7 +148,6 @@ int main(int argc, char **argv) {
   initG();
 
   world.size = WORLD_SIZE;
-  world.load("obj/box.obj", 0, 0, 0);
 
   for (GLfloat x = 0; x < 5; x++) {
     for (GLfloat z = 0; z < 5; z++) {
@@ -153,6 +155,8 @@ int main(int argc, char **argv) {
     }
   }
 
+  world.load("obj/terrain.obj", 0, 0, 0, 0.6);
+  world.load("obj/box.obj", 0, 0, 0, 0.6);
   world.skybox.load("skyboxes/bluesky1");
 
   mainLoop();

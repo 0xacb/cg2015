@@ -34,6 +34,7 @@ class Object {
 		virtual void update();
 		virtual void render();
 		GLdouble x, y, z;
+		GLfloat opacity = 1.0;
 };
 
 #endif
