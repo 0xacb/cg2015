@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <GL/glut.h>
 
+#include "main.hpp"
 #include "object.hpp"
 
 #ifdef __APPLE__
@@ -17,6 +18,7 @@ using namespace std;
 class Sphere : public Object {
 	private:
 		GLfloat radius;
+		GLfloat vx, vy, vz;
 
   public:
 		Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius);

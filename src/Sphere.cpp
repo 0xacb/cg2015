@@ -5,10 +5,16 @@ Sphere::Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius) {
 	y = _y;
 	z = _z;
 	radius = _radius;
+
+	vx = randomFloat(-0.1, 0.1);
+	vy = randomFloat(-0.1, 0.1);
+	vz = randomFloat(-0.1, 0.1);
 }
 
 void Sphere::update() {
-	x += 0.1f;
+	x += vx;
+	y += vy;
+	z += vz;
 }
 
 void Sphere::render() {
