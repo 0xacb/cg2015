@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <vector>
+#include <algorithm>
 #include <GL/glut.h>
 
 #include "camera.hpp"

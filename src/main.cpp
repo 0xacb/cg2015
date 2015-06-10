@@ -117,7 +117,8 @@ void initWindow() {
 void mainLoop() {
   double oldTime = glfwGetTime(), oldFrameTime = glfwGetTime();
   double currentTime, delta, deltaFrame;
-  while(!glfwWindowShouldClose(window)) {
+
+  while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     /*Delta*/
@@ -125,13 +126,6 @@ void mainLoop() {
     delta = (currentTime-oldTime);
     deltaFrame = (currentTime-oldFrameTime);
     nFrames++;
-
-    if (deltaFrame >= 1.0) {
-      printf("\r%d FPS", nFrames);
-      fflush(stdout);
-      nFrames = 0;
-      oldFrameTime = currentTime;
-    }
 
     /* Update scene elements */
     world.update();
@@ -158,8 +152,8 @@ int main(int argc, char **argv) {
 
   world.size = WORLD_SIZE;
 
-  for (GLfloat x = 0; x < 6; x++) {
-    for (GLfloat z = 0; z < 6; z++) {
+  for (GLfloat x = 0; x < 9; x++) {
+    for (GLfloat z = 0; z < 9; z++) {
       string type("sphere");
       world.load(new Sphere(x * 6, 30, z * 6, 2), type);
     }

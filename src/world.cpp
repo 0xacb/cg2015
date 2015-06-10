@@ -30,29 +30,47 @@ void World::update() {
 		objects[i]->update();
 	}
 
+	vector<int> toRemove;
+	vector<bool> canCollide(spheres.size(), true);
+
 	for (int i = 0; i < (int) spheres.size(); i++) {
 		for (int u = i + 1; u < (int) spheres.size(); u++) {
-			if (spheres[i]->isColliding(spheres[u])) {
-				//GLfloat redColor[4] = {1.0, 0.0, 0.0, 1.0};
+			if (spheres[i]->isColliding(spheres[u]) && canCollide[i]) {
+				printf("Collision happening.\n");
 
 				GLfloat newColor[4] = {(spheres[i]->color[0] + spheres[i]->color[0]) / 2,
 					(spheres[i]->color[1] + spheres[i]->color[1]) / 2,
 					(spheres[i]->color[2] + spheres[i]->color[2]) / 2,
 					1.0f};
 
-					memcpy(spheres[i]->color, newColor, sizeof(newColor));
-					memcpy(spheres[u]->color, newColor, sizeof(newColor));
+				memcpy(spheres[i]->color, newColor, sizeof(newColor));
+				memcpy(spheres[u]->color, newColor, sizeof(newColor));
 
-				}
-			}
+				spheres[u]->radius *= 1.5;
 
-			if (fabs(spheres[i]->x) >= cubeSide || fabs(spheres[i]->y) + spheres[i]->radius >= cubeHeight || fabs(spheres[i]->z) >= cubeSide) {
-				spheres[i]->vx = -spheres[i]->vx;
-				spheres[i]->vy = -spheres[i]->vy;
-				spheres[i]->vz = -spheres[i]->vz;
+				toRemove.push_back(i);
+				canCollide[u] = false;
+				break;
 			}
 		}
+
+		if (fabs(spheres[i]->x) >= cubeSide ||
+		 	  fabs(spheres[i]->y) + spheres[i]->radius >= cubeHeight ||
+				fabs(spheres[i]->z) >= cubeSide) {
+			spheres[i]->vx = -spheres[i]->vx;
+			spheres[i]->vy = -spheres[i]->vy;
+			spheres[i]->vz = -spheres[i]->vz;
+		}
 	}
+
+ vector<int>::iterator it = unique(toRemove.begin(), toRemove.end());
+	toRemove.resize(distance(toRemove.begin(), it));
+	printf("%d, %d\n", (int) toRemove.size(), (int) spheres.size());
+
+	for (int i = toRemove.size() - 1; i >= 0; i--) {
+		spheres.erase(spheres.begin() + toRemove[i]);
+	}
+}
 
 	void World::render() {
 		for (int i = 0; i<(signed)objects.size(); i++) {
