@@ -161,11 +161,12 @@ int main(int argc, char **argv) {
   for (GLfloat x = 0; x < 6; x++) {
     for (GLfloat z = 0; z < 6; z++) {
       string type("sphere");
-      world.load(new Sphere(x * 6, 0, z * 6, 2), type);
+      world.load(new Sphere(x * 6, 30, z * 6, 2), type);
     }
   }
 
-  world.load("obj/terrain.obj", 0, 0, 0, 0.6);
+  world.load("obj/sea.obj", 0, 0, 0, 1.0);
+  world.load("obj/island.obj", 0, 0, 0, 1.0);
   world.load("obj/box.obj", 0, 0, 0, 0.6);
   world.skybox.load("skyboxes/bluesky1");
 

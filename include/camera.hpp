@@ -14,10 +14,10 @@ class Camera {
 	public:
 		Camera();
 		~Camera();
-		GLfloat camX = 4, camY = 1.5, camZ = 1;
+		GLfloat camX = 0, camY = 10, camZ = 55;
 		GLfloat vcamX = 1, vcamY = 1, vcamZ = 1;
 		GLfloat rcamX = 0, rcamY = 0, rcamZ = 0;
-		GLfloat camSpeed = 5.0f;
+		GLfloat camSpeed = 4.0f;
 		GLfloat mouseVSensitivity = 7.0f;
 		GLfloat mouseHSensitivity = 7.0f;
 		void move(double delta);

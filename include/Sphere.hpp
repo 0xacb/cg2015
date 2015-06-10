@@ -12,7 +12,7 @@
 	#include <OpenGL/glut.h>
 #else
 	#include <GL/gl.h>
-	#include <GL/glut.h>
+	#include <GL/glu.h>
 #endif
 
 using namespace std;
@@ -25,7 +25,7 @@ class Sphere : public Object {
 		Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius);
 		GLfloat color[4];
 		void update();
-    void render();
+		void render();
 		bool isColliding(Sphere *otherSphere);
 };
 
