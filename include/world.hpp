@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <vector>
 #include <algorithm>
-#include <GL/glut.h>
 
-#include "camera.hpp"
 #include "skybox.hpp"
 #include "object.hpp"
-#include "Sphere.hpp"
+#include "sphere.hpp"
+#include "sea.hpp"
 
 using namespace std;
 
@@ -21,9 +20,11 @@ class World {
 		Camera camera;
 
 		Skybox skybox;
+		Sea sea;
+
 		vector<Object*> objects;
 		vector<Sphere*> spheres;
-		double size;
+		double size = 1000;
 		void load(const char* path, GLdouble x, GLdouble y, GLdouble z, GLfloat opacity);
 		void load(const char* path, GLdouble x, GLdouble y, GLdouble z);
 		void load(Object *obj, string type);

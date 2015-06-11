@@ -36,7 +36,7 @@ void World::update() {
 	for (int i = 0; i < (int) spheres.size(); i++) {
 		for (int u = i + 1; u < (int) spheres.size(); u++) {
 			if (spheres[i]->isColliding(spheres[u]) && canCollide[i]) {
-				printf("Collision happening.\n");
+				//printf("Collision happening.\n");
 
 				GLfloat newColor[4] = {(spheres[i]->color[0] + spheres[i]->color[0]) / 2,
 					(spheres[i]->color[1] + spheres[i]->color[1]) / 2,
@@ -65,18 +65,18 @@ void World::update() {
 
  vector<int>::iterator it = unique(toRemove.begin(), toRemove.end());
 	toRemove.resize(distance(toRemove.begin(), it));
-	printf("%d, %d\n", (int) toRemove.size(), (int) spheres.size());
+	//printf("%d, %d\n", (int) toRemove.size(), (int) spheres.size());
 
 	for (int i = toRemove.size() - 1; i >= 0; i--) {
 		spheres.erase(spheres.begin() + toRemove[i]);
 	}
 }
 
-	void World::render() {
-		for (int i = 0; i<(signed)objects.size(); i++) {
-			glPushMatrix();
-			glTranslatef(objects[i]->x, objects[i]->y, objects[i]->z);
-			objects[i]->render();
-			glPopMatrix();
-		}
+void World::render() {
+	for (int i = 0; i<(signed)objects.size(); i++) {
+		glPushMatrix();
+		glTranslatef(objects[i]->x, objects[i]->y, objects[i]->z);
+		objects[i]->render();
+		glPopMatrix();
 	}
+}

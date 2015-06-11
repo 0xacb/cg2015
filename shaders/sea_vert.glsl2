@@ -1,0 +1,10 @@
+uniform float waveWidth;
+uniform float waveHeight;
+uniform float wavePeriod;
+
+void main(void) {
+	vec4 v = vec4(gl_Vertex);
+	v.y = sin(waveWidth*v.x + wavePeriod) * cos(waveWidth*v.z + wavePeriod) * waveHeight + 0.45;
+	gl_Position = gl_ModelViewProjectionMatrix * v;
+	gl_TexCoord[0] = gl_MultiTexCoord0;
+}

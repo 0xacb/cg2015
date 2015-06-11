@@ -1,14 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-#ifdef __APPLE__
-	#include <OpenGL/gl.h>
-#else
-	#include <GL/gl.h>
-#endif
-
-#include <GLFW/glfw3.h>
+#include "texture.hpp"
 
 static void reverse(void* x,const int n) {
     int k;
@@ -73,7 +63,7 @@ int loadTexture(const char * path){
     }
 
     glGenTextures(1,&texture);
-    glBindTexture(GL_TEXTURE_2D,texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
 
     glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
     glTexImage2D(GL_TEXTURE_2D,0,3,dx,dy,0,GL_RGB,GL_UNSIGNED_BYTE,image);

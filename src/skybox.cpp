@@ -1,7 +1,4 @@
-#include <string.h>
-#include <math.h>
 #include "skybox.hpp"
-#include "texture.hpp"
 
 Skybox::Skybox(){}
 

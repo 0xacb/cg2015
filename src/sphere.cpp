@@ -1,4 +1,4 @@
-#include "Sphere.hpp"
+#include "sphere.hpp"
 
 Sphere::Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius) {
 	x = _x;

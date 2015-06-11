@@ -2,15 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <GLFW/glfw3.h>
 
 #ifdef __APPLE__
-#include <OpenGL/glu.h>
-#include <OpenGL/gl.h>
+  #include <OpenGL/glu.h>
+  #include <OpenGL/gl.h>
 #else
-#include <GL/glu.h>
-#include <GL/gl.h>
+  #include <GL/glew.h>
 #endif
+
+#include <GLFW/glfw3.h>
 
 #include <math.h>
 #include <vector>
@@ -23,12 +23,10 @@
 
 using namespace std;
 
-GLint WINDOW_RESOLUTION_X = 700;
-GLint WINDOW_RESOLUTION_Y = 500;
+GLint WINDOW_RESOLUTION_X = 1366;
+GLint WINDOW_RESOLUTION_Y = 768;
 GLint WINDOW_MID_X = WINDOW_RESOLUTION_X/2;
 GLint WINDOW_MID_Y = WINDOW_RESOLUTION_Y/2;
-
-double WORLD_SIZE = 1000;
 
 bool AUTOMATIC_RESOLUTION = true;
 bool FULLSCREEN = true;
@@ -83,7 +81,7 @@ void initG(void) {
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(FIELD_OF_VIEW, 1.0*WINDOW_RESOLUTION_X/WINDOW_RESOLUTION_Y, 0.1, WORLD_SIZE*2);
+  gluPerspective(FIELD_OF_VIEW, 1.0*WINDOW_RESOLUTION_X/WINDOW_RESOLUTION_Y, 0.1, world.size*2);
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -105,7 +103,6 @@ void initWindow() {
   }
 
   window = glfwCreateWindow(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y, WINDOW_NAME, FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
-  //glfwGetPrimaryMonitor() - fullscreen
   if (!window)
   exit(EXIT_FAILURE);
   glfwMakeContextCurrent(window);
@@ -113,10 +110,31 @@ void initWindow() {
   glShadeModel(GL_SMOOTH);
 }
 
+double delta;
+
+void renderScene() {
+  world.skybox.draw(world.size);
+  world.skybox.renderSun(delta);
+  world.render();
+}
+
+void renderReflection() {
+  glPushMatrix();
+      glScalef(1.0, -0.9, 1.0);
+      glTranslatef(0.0, -world.sea.seaLevel, 0.0);
+      double plane[4] = {0.0, 1.0, 0.0, -world.sea.seaLevel}; 
+      glEnable(GL_CLIP_PLANE0);
+      glClipPlane(GL_CLIP_PLANE0, plane);
+      renderScene();
+      world.sea.renderReflection(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y);
+      glDisable(GL_CLIP_PLANE0);
+    glPopMatrix();
+}
+
 /*Main Loop*/
 void mainLoop() {
   double oldTime = glfwGetTime(), oldFrameTime = glfwGetTime();
-  double currentTime, delta, deltaFrame;
+  double currentTime, deltaFrame;
 
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -131,9 +149,11 @@ void mainLoop() {
     world.update();
 
     /*Draw*/
-    world.skybox.draw(world.size);
-    world.skybox.renderSun(delta);
-    world.render();
+    renderReflection();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    world.sea.render(delta);
+    renderScene();
+  
     world.camera.calcMovement(keyState);
     world.camera.move(delta);
 
@@ -144,14 +164,18 @@ void mainLoop() {
   }
 }
 
+void initShaders() {
+  world.sea.initShaders();
+}
+
 int main(int argc, char **argv) {
   initWindow();
   initInputs();
   initG();
+  glewInit();
+  initShaders();
+
   srand(time(NULL));
-
-  world.size = WORLD_SIZE;
-
   for (GLfloat x = 0; x < 9; x++) {
     for (GLfloat z = 0; z < 9; z++) {
       string type("sphere");
@@ -159,10 +183,10 @@ int main(int argc, char **argv) {
     }
   }
 
-  world.load("obj/sea.obj", 0, 0, 0, 1.0);
   world.load("obj/island.obj", 0, 0, 0, 1.0);
   world.load("obj/box.obj", 0, 0, 0, 0.6);
   world.skybox.load("skyboxes/bluesky1");
+  world.sea.load(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y);
 
   mainLoop();
   exit(EXIT_FAILURE);

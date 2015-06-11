@@ -1,12 +1,13 @@
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
 #else
-	#include <GL/gl.h>
+	#include <GL/glew.h>
 #endif
 
+#include <GLFW/glfw3.h>
 #include <math.h>
 #include <map>
-#include <GLFW/glfw3.h>
+#include "math.hpp"
 
 using namespace std;
 

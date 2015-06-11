@@ -4,13 +4,14 @@
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
 #else
-	#include <GL/gl.h>
+	#include <GL/glew.h>
 #endif
 
 #include <stdio.h>
 #include <string.h>
 #include <vector>
 #include "structs.hpp"
+#include "texture.hpp"
 
 #define MAXLEN 100
 #define TEXTURE_PATH "obj/textures/"

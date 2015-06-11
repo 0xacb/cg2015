@@ -1,10 +1,14 @@
 #include <stdio.h>
+#include <string.h>
+#include <math.h>
 
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
 #else
-	#include <GL/gl.h>
+	#include <GL/glew.h>
 #endif
+
+#include "texture.hpp"
 
 #define BACK "back"
 #define FRONT "front"
@@ -21,9 +25,9 @@ class Skybox {
 	public:
 		Skybox();
 		~Skybox();
-		GLuint textures[6];
+		GLint textures[6];
 		float rSun = 0, sunX = 0, sunY = 400, sunZ = 0;
-		float dayDuration = 120; //seconds
+		float dayDuration = 200; //seconds
 		bool load(const char* path);
 		void draw(double dist);
 		void renderSun(double delta);
