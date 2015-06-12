@@ -41,7 +41,6 @@ void Sea::renderReflection(GLint textureWidth, GLint textureHeight) {
 float lightX, lightY, lightZ = 0;
 
 void Sea::render(double delta, Camera camera, float rSun, float sunY) {
-	register int i, j;
 	glUseProgram(this->shader.shaderProgram);
 
 	rSun = TO_RADS(rSun);
@@ -62,8 +61,8 @@ void Sea::render(double delta, Camera camera, float rSun, float sunY) {
 	glBindTexture(GL_TEXTURE_2D, this->texture);
 
 	glBegin(GL_QUADS);
-	for (i=-this->xSize;i<this->xSize;i+=this->divSize) {
-		for (j=-this->ySize;j<this->ySize;j+=this->divSize) {
+	for (int i=-this->xSize;i<this->xSize;i+=this->divSize) {
+		for (int j=-this->ySize;j<this->ySize;j+=this->divSize) {
 			glTexCoord2f(0.0, 0.0); glVertex3f(i, this->seaLevel, j);
 			glTexCoord2f(0.0, 1.0); glVertex3f(i, this->seaLevel, j+this->divSize);
 			glTexCoord2f(1.0, 1.0); glVertex3f(i+this->divSize, this->seaLevel, j+this->divSize);

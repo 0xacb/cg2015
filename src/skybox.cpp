@@ -71,7 +71,6 @@ void drawSkyboxFace(int i, GLint texture, double dist, float brightness) {
 }
 
 float calcDayBrightness(float rSun) {
-  rSun = fmod(rSun, 360);
   if (rSun > 200) {
     return MIN_BRIGHTNESS;
   }
@@ -88,7 +87,7 @@ float calcDayBrightness(float rSun) {
 }
 
 void Skybox::draw(double dist) {
-  float brightness = calcDayBrightness(rSun+90);
+  this->brightness = calcDayBrightness(rSun+90);
   glDisable(GL_LIGHTING);
   glEnable(GL_TEXTURE_2D);
   glPushMatrix();
@@ -130,8 +129,8 @@ void Skybox::renderSun(double delta) {
 
     GLfloat lightAmbient[4] = {0.5, 0.5, 0.5, 1.0};
     GLfloat lightPosition[4] = {sunX, sunY, sunZ, 0.0};
-    GLfloat lightDiffuse[4] = {1.0, 1.0, 1.0, 1.0};
-    
+    GLfloat lightDiffuse[4] = {brightness, brightness, brightness, 1.0};
+
     glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);

@@ -30,6 +30,7 @@ class Skybox {
 		Shader shader;
 		float rSun = 0, sunX = 0, sunY = 400, sunZ = 0;
 		float dayDuration = 200; //seconds
+		float brightness;
 		GLint lightYLoc;
 		GLint textures[6];
 		void initShaders();

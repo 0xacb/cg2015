@@ -10,7 +10,7 @@ void main(void) {
 	}
 	float red = 1.0;
 	float green = lightY/400.0+0.6;
-	float blue = (alpha-0.01)*lightY/400.0;
+	float blue = lightY/400.0-0.1;
 	vec4 color = vec4(red, green, blue, alpha);
 	gl_FragColor = color;
 }
