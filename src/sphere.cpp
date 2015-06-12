@@ -24,9 +24,12 @@ void Sphere::update() {
 
 void Sphere::render() {
 	GLfloat colorWhite[4] = {1.0, 1.0, 1.0, 1.0};
+	GLfloat colorAmbient[4] = {0.2, 0.2, 0.2, 1.0};
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, color);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 	gluSphere(gluNewQuadric(), radius, 24, 24);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, colorWhite);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient);
 };
 
 bool Sphere::isColliding(Sphere *otherSphere) {

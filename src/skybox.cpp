@@ -109,8 +109,6 @@ void drawCircle(float r) {
 }
 
 void Skybox::renderSun(double delta) {
-  glEnable(GL_DEPTH_TEST);
-  glDepthFunc(GL_LESS);
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
 
@@ -118,9 +116,6 @@ void Skybox::renderSun(double delta) {
     glRotatef(rSun, 0.0, 0.0, 1.0);
     rSun += delta*360/dayDuration;
     rSun = fmod(rSun, 360);
-    GLfloat lightAmbient[4]= {1.0, 1.0, 1.0, 1.0};
-    GLfloat lightPosition[4] = {sunX, sunY, sunZ, 0.0};
-    GLfloat lightDiffuse[4]= {1.0, 1.0, 1.0, 1.0};
 
     glTranslatef(sunX, sunY, sunZ);
 
@@ -133,6 +128,10 @@ void Skybox::renderSun(double delta) {
 
     glUseProgram(0);
 
+    GLfloat lightAmbient[4] = {0.5, 0.5, 0.5, 1.0};
+    GLfloat lightPosition[4] = {sunX, sunY, sunZ, 0.0};
+    GLfloat lightDiffuse[4] = {1.0, 1.0, 1.0, 1.0};
+    
     glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
