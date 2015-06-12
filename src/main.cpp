@@ -124,7 +124,7 @@ void renderReflection() {
   glPushMatrix();
       glScalef(1.0, -0.9, 1.0);
       glTranslatef(0.0, -world.sea.seaLevel, 0.0);
-      double plane[4] = {0.0, 1.0, 0.0, -world.sea.seaLevel}; 
+      double plane[4] = {0.0, 1.0, 0.0, -world.sea.seaLevel};
       glEnable(GL_CLIP_PLANE0);
       glClipPlane(GL_CLIP_PLANE0, plane);
       renderScene();
@@ -155,7 +155,7 @@ void mainLoop() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     world.sea.render(delta, world.camera, world.skybox.rSun, world.skybox.sunY);
     renderScene();
-  
+
     world.camera.calcMovement(keyState);
     world.camera.move(delta);
 
@@ -177,7 +177,13 @@ int main(int argc, char **argv) {
   initWindow();
   initInputs();
   initG();
-  glewInit();
+
+  #ifdef __APPLE__
+    glfwInit();
+  #else
+    glewInit();
+  #endif
+
   initShaders();
 
   srand(time(NULL));
