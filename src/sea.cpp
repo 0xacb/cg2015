@@ -15,6 +15,8 @@ void Sea::initShaders() {
 	this->waveWidthLoc = glGetUniformLocation(shader.shaderProgram, "waveWidth");
 	this->waveHeightLoc = glGetUniformLocation(shader.shaderProgram, "waveHeight");
 	this->wavePeriodLoc = glGetUniformLocation(shader.shaderProgram, "wavePeriod");
+	this->lightPosLoc = glGetUniformLocation(shader.shaderProgram, "lightPos");
+	this->cameraPosLoc = glGetUniformLocation(shader.shaderProgram, "cameraPos");
 }
 
 void Sea::load(GLint textureWidth, GLint textureHeight) {
@@ -36,13 +38,21 @@ void Sea::renderReflection(GLint textureWidth, GLint textureHeight) {
 	glDisable(GL_TEXTURE_2D);
 }
 
-void Sea::render(double delta) {
+float lightX, lightY, lightZ = 0;
+
+void Sea::render(double delta, Camera camera, float rSun, float sunY) {
 	register int i, j;
 	glUseProgram(this->shader.shaderProgram);
+
+	rSun = TO_RADS(rSun);
+	lightX = -(0*cos(rSun) - sunY*sin(rSun));
+	lightY = sunY*cos(rSun) + 0*sin(rSun);
 
 	glUniform1f(this->waveWidthLoc, waveWidth);
 	glUniform1f(this->waveHeightLoc, waveHeight);
 	glUniform1f(this->wavePeriodLoc, wavePeriod);
+	glUniform4f(this->lightPosLoc, lightX, lightY, lightZ, 1.0f);
+	glUniform4f(this->cameraPosLoc, camera.x, camera.y, camera.z, 1.0f);
 	glUniform1i(this->baseLoc, 0);
 	glUniform1i(this->reflectionLoc, 1);
 
@@ -54,10 +64,10 @@ void Sea::render(double delta) {
 	glBegin(GL_QUADS);
 	for (i=-this->xSize;i<this->xSize;i+=this->divSize) {
 		for (j=-this->ySize;j<this->ySize;j+=this->divSize) {
-		glTexCoord2f(0.0, 0.0); glVertex3f(i, this->seaLevel, j);
-		glTexCoord2f(0.0, 1.0); glVertex3f(i, this->seaLevel, j+this->divSize);
-		glTexCoord2f(1.0, 1.0); glVertex3f(i+this->divSize, this->seaLevel, j+this->divSize);
-		glTexCoord2f(1.0, 0.0); glVertex3f(i+this->divSize, this->seaLevel, j);
+			glTexCoord2f(0.0, 0.0); glVertex3f(i, this->seaLevel, j);
+			glTexCoord2f(0.0, 1.0); glVertex3f(i, this->seaLevel, j+this->divSize);
+			glTexCoord2f(1.0, 1.0); glVertex3f(i+this->divSize, this->seaLevel, j+this->divSize);
+			glTexCoord2f(1.0, 0.0); glVertex3f(i+this->divSize, this->seaLevel, j);
 		}
 	}
 	glEnd();

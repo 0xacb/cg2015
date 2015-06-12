@@ -2,7 +2,6 @@
 #include <vector>
 #include <algorithm>
 
-#include "skybox.hpp"
 #include "object.hpp"
 #include "sphere.hpp"
 #include "sea.hpp"

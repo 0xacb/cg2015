@@ -15,7 +15,7 @@ class Camera {
 	public:
 		Camera();
 		~Camera();
-		GLfloat camX = 0, camY = 10, camZ = 55;
+		GLfloat x = 0, y = 10, z = 55;
 		GLfloat vcamX = 1, vcamY = 1, vcamZ = 1;
 		GLfloat rcamX = 0, rcamY = 0, rcamZ = 0;
 		GLfloat camSpeed = 4.0f;

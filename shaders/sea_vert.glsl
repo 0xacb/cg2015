@@ -1,9 +1,14 @@
 varying vec4 viewCoords;
 varying vec4 texCoords;
+varying vec4 lightTangentSpace;
+varying vec4 viewTangentSpace;
+varying vec4 vertCoords;
 
 uniform float waveWidth;
 uniform float waveHeight;
 uniform float wavePeriod;
+
+uniform vec4 lightPos, cameraPos;
 
 void main() {
 	vec4 v = vec4(gl_Vertex);
@@ -12,4 +17,5 @@ void main() {
 	viewCoords = gl_ModelViewProjectionMatrix * v;
 	gl_Position = viewCoords;
 	texCoords = gl_MultiTexCoord0;
+	vertCoords = v;
 }

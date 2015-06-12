@@ -17,6 +17,14 @@ bool Skybox::load(const char* path){
   return true;
 }
 
+void Skybox::initShaders() {
+  shader.load("shaders/sun_vert.glsl");
+  shader.load("shaders/sun_frag.glsl");
+  shader.compileShaders();
+  shader.loadProgram();
+  this->lightYLoc = glGetUniformLocation(this->shader.shaderProgram, "lightY");
+}
+
 void drawSkyboxFace(int i, GLint texture, double dist, float brightness) {
   glBindTexture(GL_TEXTURE_2D, texture);
   glColor3f(brightness, brightness, brightness);
@@ -64,7 +72,7 @@ void drawSkyboxFace(int i, GLint texture, double dist, float brightness) {
 
 float calcDayBrightness(float rSun) {
   rSun = fmod(rSun, 360);
-  if (rSun > 180) {
+  if (rSun > 200) {
     return MIN_BRIGHTNESS;
   }
   if (rSun < 60) {
@@ -73,8 +81,8 @@ float calcDayBrightness(float rSun) {
   if (rSun < 130) {
     return 1;
   }
-  if (rSun < 180) {
-    return -(rSun-180)*(1.0/50)+MIN_BRIGHTNESS;
+  if (rSun < 200) {
+    return -(rSun-200)*(1.0/50)+MIN_BRIGHTNESS;
   }
   return 1;
 }
@@ -91,29 +99,42 @@ void Skybox::draw(double dist) {
   glDisable(GL_TEXTURE_2D);
 }
 
+void drawCircle(float r) {
+  float delta = 0.1;
+  glBegin(GL_POLYGON);
+    for(float angle=0;angle<2*PI;angle+=delta) {
+      glVertex3f(r*cos(angle), 0 ,r*sin(angle));
+    }
+  glEnd();
+}
+
 void Skybox::renderSun(double delta) {
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
   glEnable(GL_LIGHTING);
-  glEnable(GL_LIGHT1);
+  glEnable(GL_LIGHT0);
 
   glPushMatrix();
-  glRotatef(rSun, 0.0, 0.0, 1.0);
-  rSun += delta*360/dayDuration;
-  rSun = fmod(rSun, 360);
-  GLfloat lightAmbient[4]= {1.0, 1.0, 1.0, 1.0};
-  GLfloat lightPosition[4] = {sunX, sunY, sunZ, 0.0};
-  GLfloat lightDiffuse[4]= {1.0, 1.0, 1.0, 1.0};
-  glLightfv(GL_LIGHT1, GL_AMBIENT, lightAmbient);
-  glLightfv(GL_LIGHT1, GL_DIFFUSE, lightDiffuse);
-  glLightfv(GL_LIGHT1, GL_POSITION, lightPosition);
+    glRotatef(rSun, 0.0, 0.0, 1.0);
+    rSun += delta*360/dayDuration;
+    rSun = fmod(rSun, 360);
+    GLfloat lightAmbient[4]= {1.0, 1.0, 1.0, 1.0};
+    GLfloat lightPosition[4] = {sunX, sunY, sunZ, 0.0};
+    GLfloat lightDiffuse[4]= {1.0, 1.0, 1.0, 1.0};
 
-  glTranslatef(sunX, sunY, sunZ);
-  glBegin(GL_QUADS);
-  glVertex3f(10, 0, 10);
-  glVertex3f(0, 0, 10);
-  glVertex3f(0, 0, 0);
-  glVertex3f(10, 0, 0);
-  glEnd();
+    glTranslatef(sunX, sunY, sunZ);
+
+    glUseProgram(this->shader.shaderProgram);
+    float radSun = TO_RADS(rSun);
+    float lightY = sunY*cos(radSun);
+    glUniform1f(this->lightYLoc, lightY);
+
+    drawCircle(25);
+
+    glUseProgram(0);
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
   glPopMatrix();
 }

@@ -5,13 +5,13 @@ Camera::Camera(){}
 Camera::~Camera(){}
 
 void Camera::move(double delta) {
-	camX += vcamX*camSpeed*delta;
-	camY += vcamY*camSpeed*delta;
-	camZ += vcamZ*camSpeed*delta;
+	x += vcamX*camSpeed*delta;
+	y += vcamY*camSpeed*delta;
+	z += vcamZ*camSpeed*delta;
 	glLoadIdentity();
 	glRotatef(rcamX, 1.0f, 0.0f, 0.0f);
 	glRotatef(rcamY, 0.0f, 1.0f, 0.0f);
-	glTranslatef(-camX, -camY, -camZ);
+	glTranslatef(-x, -y, -z);
 }
 
 void Camera::rotate(int horizontalMovement, int verticalMovement) {

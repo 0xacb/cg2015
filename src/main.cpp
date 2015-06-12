@@ -40,7 +40,7 @@ int nFrames = 0;
 World world;
 
 float randomFloat(float a, float b) {
-    float random = ((float) rand()) / (float) RAND_MAX;
+    float random = ((float) rand()) /(float) RAND_MAX;
     float diff = b - a;
     float r = random * diff;
     return a + r;
@@ -151,7 +151,7 @@ void mainLoop() {
     /*Draw*/
     renderReflection();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    world.sea.render(delta);
+    world.sea.render(delta, world.camera, world.skybox.rSun, world.skybox.sunY);
     renderScene();
   
     world.camera.calcMovement(keyState);
@@ -165,7 +165,10 @@ void mainLoop() {
 }
 
 void initShaders() {
+  printf("Loading shaders... ");
   world.sea.initShaders();
+  world.skybox.initShaders();
+  printf("done.\n");
 }
 
 int main(int argc, char **argv) {

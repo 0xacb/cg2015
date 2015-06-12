@@ -6,23 +6,18 @@ Shader::~Shader(){}
 
 void Shader::compileShaders() {
 	if (this->vertexProgram) {
-		printf("Loading vertex shader... ");
 		this->vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(this->vertexShader, 1, &this->vertexProgram, NULL);
 		glCompileShader(this->vertexShader);
 		free(this->vertexProgram);
 		printLog(this->vertexShader);
-		printf("done.\n");
-
 	}
 	if (this->fragmentProgram) {
-		printf("Loading fragment shader... ");
 		this->fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(this->fragmentShader, 1, &this->fragmentProgram, NULL);
 		glCompileShader(this->fragmentShader);
 		free(this->fragmentProgram);
 		printLog(this->fragmentShader);
-		printf("done.\n");
 	}
 }
 
