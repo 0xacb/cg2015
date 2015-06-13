@@ -22,7 +22,7 @@ class Sphere : public Object {
   public:
 		GLfloat vx, vy, vz;
 		GLfloat radius;
-		Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius);
+		Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius, GLfloat _r, GLfloat _g, GLfloat _b);
 		GLfloat color[4];
 		void update();
 		void render();

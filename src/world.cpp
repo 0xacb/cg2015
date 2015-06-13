@@ -31,13 +31,10 @@ void World::update() {
 	}
 
 	vector<int> toRemove;
-	vector<bool> canCollide(spheres.size(), true);
 
 	for (int i = 0; i < (int) spheres.size(); i++) {
 		for (int u = i + 1; u < (int) spheres.size(); u++) {
-			if (spheres[i]->isColliding(spheres[u]) && canCollide[i]) {
-				//printf("Collision happening.\n");
-
+			if (spheres[i]->isColliding(spheres[u])) {
 				GLfloat newColor[4] = {(spheres[i]->color[0] + spheres[i]->color[0]) / 2,
 					(spheres[i]->color[1] + spheres[i]->color[1]) / 2,
 					(spheres[i]->color[2] + spheres[i]->color[2]) / 2,
@@ -49,7 +46,7 @@ void World::update() {
 				spheres[u]->radius *= 1.5;
 
 				toRemove.push_back(i);
-				canCollide[u] = false;
+				toRemove.push_back(u);
 				break;
 			}
 		}

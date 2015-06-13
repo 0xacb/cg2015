@@ -190,7 +190,7 @@ int main(int argc, char **argv) {
   for (GLfloat x = 0; x < 9; x++) {
     for (GLfloat z = 0; z < 9; z++) {
       string type("sphere");
-      world.load(new Sphere(x * 6, 30, z * 6, 2), type);
+      world.load(new Sphere(x * 6, 30, z * 6, 2, -1, -1, -1), type);
     }
   }
 
