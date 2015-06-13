@@ -9,7 +9,9 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <string>
 #include <vector>
+
 #include "structs.hpp"
 #include "texture.hpp"
 
@@ -24,6 +26,7 @@ class Object {
 	public:
 		Object();
 		~Object();
+		string type;
 		const char* path;
 		vector <point> verts;
 		vector <point> normals;

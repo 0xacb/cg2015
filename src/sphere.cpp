@@ -6,7 +6,7 @@ Sphere::Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius, GLfloat _r, 
 	z = _z;
 	radius = _radius;
 
-	float speedCap = 0.03;
+	float speedCap = 0.02;
 	vx = randomFloat(-speedCap, speedCap);
 	vy = randomFloat(-speedCap, speedCap);
 	vz = randomFloat(-speedCap, speedCap);
