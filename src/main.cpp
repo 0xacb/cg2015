@@ -23,15 +23,15 @@
 
 using namespace std;
 
-GLint WINDOW_RESOLUTION_X = 1366;
-GLint WINDOW_RESOLUTION_Y = 768;
-GLint WINDOW_MID_X = WINDOW_RESOLUTION_X/2;
-GLint WINDOW_MID_Y = WINDOW_RESOLUTION_Y/2;
+float WINDOW_RESOLUTION_X = 1366;
+float WINDOW_RESOLUTION_Y = 768;
+float WINDOW_MID_X = WINDOW_RESOLUTION_X/2;
+float WINDOW_MID_Y = WINDOW_RESOLUTION_Y/2;
 
-bool AUTOMATIC_RESOLUTION = true;
+bool AUTOMATIC_RESOLUTION = false;
 bool FULLSCREEN = true;
-GLint MULTISAMPLING_LEVEL = 4;
-GLint FIELD_OF_VIEW = 90;
+int MULTISAMPLING_LEVEL = 4;
+int FIELD_OF_VIEW = 90;
 
 GLFWwindow* window;
 map<int, bool> keyState;
@@ -85,7 +85,6 @@ void initG(void) {
 
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
   glEnable(GL_DEPTH_TEST);
 
   glMatrixMode(GL_MODELVIEW);
@@ -114,10 +113,16 @@ void initWindow() {
 
 double delta;
 
-void renderScene() {
+void renderScene(bool normalRender) {
   world.skybox.draw(world.size);
   world.skybox.renderSun(delta);
+  if (normalRender) {
+    world.sea.render(delta, world.camera, world.skybox.lightX, world.skybox.lightY);
+  }
   world.render();
+  if (normalRender) {
+      world.skybox.renderLensFlare(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y);
+  }
 }
 
 void renderReflection() {
@@ -127,7 +132,7 @@ void renderReflection() {
       double plane[4] = {0.0, 1.0, 0.0, -world.sea.seaLevel};
       glEnable(GL_CLIP_PLANE0);
       glClipPlane(GL_CLIP_PLANE0, plane);
-      renderScene();
+      renderScene(false);
       world.sea.renderReflection(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y);
       glDisable(GL_CLIP_PLANE0);
     glPopMatrix();
@@ -153,8 +158,7 @@ void mainLoop() {
     /*Draw*/
     renderReflection();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    world.sea.render(delta, world.camera, world.skybox.rSun, world.skybox.sunY);
-    renderScene();
+    renderScene(true);
 
     world.camera.calcMovement(keyState);
     world.camera.move(delta);

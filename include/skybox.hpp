@@ -27,14 +27,17 @@ class Skybox {
 	public:
 		Skybox();
 		~Skybox();
-		Shader shader;
-		float rSun = 0, sunX = 0, sunY = 400, sunZ = 0;
-		float dayDuration = 200; //seconds
+		Shader sunShader;
+		Shader lensShader;
+		float rSun = 0, sunX = 0, sunY = 400, sunZ = 0, lightX, lightY, lightZ = 0;
+		float dayDuration = 1000; //seconds
 		float brightness;
-		GLint lightYLoc;
+		float nLens = 5;
+		GLint lightYLoc, lightYLensLoc, currentLenLoc, brightnessLoc;
 		GLint textures[6];
 		void initShaders();
 		bool load(const char* path);
 		void draw(double dist);
 		void renderSun(double delta);
+		void renderLensFlare(float windowWidth, float windowHeight);
 };

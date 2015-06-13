@@ -63,7 +63,7 @@ void World::update() {
 		}
 	}
 
- vector<int>::iterator it = unique(toRemove.begin(), toRemove.end());
+	vector<int>::iterator it = unique(toRemove.begin(), toRemove.end());
 	toRemove.resize(distance(toRemove.begin(), it));
 	//printf("%d, %d\n", (int) toRemove.size(), (int) spheres.size());
 
