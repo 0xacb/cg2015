@@ -199,8 +199,8 @@ int main(int argc, char **argv) {
   initShaders();
 
   srand(time(NULL));
-  for (GLfloat x = -5; x < 5; x += 1) {
-    for (GLfloat z = -5; z < 5; z += 1) {
+  for (GLfloat x = -5; x < 5; x += 2) {
+    for (GLfloat z = -5; z < 5; z += 2) {
       world.load(new Sphere(x * 6, 30, z * 6, 2, -1, -1, -1), "sphere");
     }
   }
