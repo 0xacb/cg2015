@@ -1,5 +1,3 @@
-varying vec4 vertCoords;
-
 uniform float lightY;
 uniform float currentLen;
 uniform float brightness;
