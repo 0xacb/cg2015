@@ -36,9 +36,13 @@ void World::update() {
 			printf("%f %f %f\n", camera.camMovementXComponent, camera.camMovementYComponent, camera.camMovementZComponent);
 			printf("%f %f %f\n", camera.lastCamMovementXComponent, camera.lastCamMovementYComponent, camera.lastCamMovementZComponent);
 
-			newSphere->vx = camera.lastCamMovementXComponent;
-			newSphere->vy = camera.lastCamMovementYComponent;
-			newSphere->vz = camera.lastCamMovementZComponent;
+			float speedNormal = sqrt(pow(camera.lastCamMovementXComponent, 2) +
+			 											   pow(camera.lastCamMovementYComponent, 2) +
+															 pow(camera.lastCamMovementZComponent, 2));
+
+			newSphere->vx = camera.lastCamMovementXComponent / speedNormal;
+			newSphere->vy = camera.lastCamMovementYComponent / speedNormal;
+			newSphere->vz = camera.lastCamMovementZComponent / speedNormal;
 			load(newSphere, "sphere");
 			canAddSphere = false;
 		}
