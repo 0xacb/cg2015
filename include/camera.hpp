@@ -18,6 +18,12 @@ class Camera {
 		GLfloat x = 0, y = 10, z = 55;
 		GLfloat vcamX = 1, vcamY = 1, vcamZ = 1;
 		GLfloat rcamX = 0, rcamY = 0, rcamZ = 0;
+		float camMovementXComponent;
+		float camMovementYComponent;
+		float camMovementZComponent;
+		float lastCamMovementXComponent = 0.0f;
+		float lastCamMovementYComponent = 0.0f;
+		float lastCamMovementZComponent = 0.0f;
 		GLfloat camSpeed = 4.0f;
 		GLfloat mouseVSensitivity = 7.0f;
 		GLfloat mouseHSensitivity = 7.0f;

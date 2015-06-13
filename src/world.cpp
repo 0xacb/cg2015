@@ -31,9 +31,19 @@ void World::load(Object *obj, string type) {
 
 void World::update() {
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
-		// TODO throw a sphere
-		Sphere *newSphere = new Sphere(camera.x, camera.y, camera.z, 1.0f, -1, -1, -1);
-		load(newSphere, "sphere");
+		if (canAddSphere) {
+			Sphere *newSphere = new Sphere(camera.x, camera.y, camera.z, 1.0f, -1, -1, -1);
+			printf("%f %f %f\n", camera.camMovementXComponent, camera.camMovementYComponent, camera.camMovementZComponent);
+			printf("%f %f %f\n", camera.lastCamMovementXComponent, camera.lastCamMovementYComponent, camera.lastCamMovementZComponent);
+
+			newSphere->vx = camera.camMovementXComponent;
+			newSphere->vy = camera.camMovementYComponent;
+			newSphere->vz = camera.camMovementZComponent;
+			load(newSphere, "sphere");
+			canAddSphere = false;
+		}
+	} else {
+		canAddSphere = true;
 	}
 
 	for (int i = 0; i < (int) objects.size(); i++) {

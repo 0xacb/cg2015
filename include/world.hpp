@@ -29,6 +29,8 @@ class World {
 		Skybox skybox;
 		Sea sea;
 
+		bool canAddSphere = true;
+
 		vector<Object*> objects;
 		vector<Sphere*> spheres;
 		double size = 1000;

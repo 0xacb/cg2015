@@ -34,9 +34,9 @@ void Camera::rotate(int horizontalMovement, int verticalMovement) {
 }
 
 void Camera::calcMovement(map<int, bool> keyState) {
-	float camMovementXComponent = 0.0f;
-	float camMovementYComponent = 0.0f;
-	float camMovementZComponent = 0.0f;
+	camMovementXComponent = 0.0f;
+	camMovementYComponent = 0.0f;
+	camMovementZComponent = 0.0f;
 
 	if (keyState[GLFW_KEY_SPACE]) {
 		camMovementYComponent += 3;
@@ -51,7 +51,7 @@ void Camera::calcMovement(map<int, bool> keyState) {
 		camMovementXComponent += (camSpeed * float(sin(TO_RADS(rcamY)))) * pitchFactor;
 		camMovementYComponent += camSpeed * float(sin(TO_RADS(rcamX))) * -1.0f;
 		float yawFactor = float(cos(TO_RADS(rcamX)));
-		camMovementZComponent += ( camSpeed * float(cos(TO_RADS(rcamY))) * -1.0f ) * yawFactor;
+		camMovementZComponent += (camSpeed * float(cos(TO_RADS(rcamY))) * -1.0f) * yawFactor;
 	}
 
 	if (keyState[GLFW_KEY_S]) {
@@ -77,6 +77,14 @@ void Camera::calcMovement(map<int, bool> keyState) {
 	vcamX = camMovementXComponent;
 	vcamY = camMovementYComponent;
 	vcamZ = camMovementZComponent;
+
+	if (camMovementXComponent != 0.0f) {
+		lastCamMovementXComponent = camMovementXComponent;
+	} else if (camMovementYComponent != 0.0f) {
+		lastCamMovementYComponent = camMovementYComponent;
+	} else if (camMovementZComponent != 0.0f) {
+		lastCamMovementZComponent = camMovementZComponent;
+	}
 
 	if (vcamX > camSpeed) vcamX = camSpeed;
 	else if (vcamX < -camSpeed) vcamX = -camSpeed;
