@@ -1,5 +1,3 @@
-#version 130
-
 varying vec4 vertCoords;
 
 uniform float lightY;
@@ -16,18 +14,18 @@ void main(void) {
 
 	int curLen = int(currentLen);
 
-	if (curLen % 5 == 0) {
+	if (curLen == 5) {
 		green = green-0.9;
 		blue = blue-0.9;
 	}
-	else if (curLen % 4 == 0) {
+	else if (curLen == 4) {
 		blue = blue-0.8;
 	}
-	else if (curLen % 3 == 0) {
+	else if (curLen == 3) {
 		red = 0.1;
 		blue = blue-0.9;
 	}
-	else if (curLen % 2 == 0) {
+	else if (curLen == 2) {
 		red = 0.2;
 		green = green-0.2;
 		blue = 0.9;
