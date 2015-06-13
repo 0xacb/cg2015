@@ -5,12 +5,12 @@
 #include <vector>
 #include <algorithm>
 
-#include <GLFW/glfw3.h>
-
 #include "main.hpp"
 #include "object.hpp"
 #include "sphere.hpp"
 #include "sea.hpp"
+
+#include <GLFW/glfw3.h>
 
 using namespace std;
 
