@@ -42,6 +42,10 @@ void Camera::calcMovement(map<int, bool> keyState) {
 		camMovementYComponent += 3;
 	}
 
+	if (keyState[GLFW_KEY_LEFT_CONTROL]) {
+		camMovementYComponent -= 3;
+	}
+
 	if (keyState[GLFW_KEY_W]) {
 		float pitchFactor = cos(TO_RADS(rcamX));
 		camMovementXComponent += (camSpeed * float(sin(TO_RADS(rcamY)))) * pitchFactor;
