@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 
+#include "main.hpp"
 #include "object.hpp"
 #include "sphere.hpp"
 #include "sea.hpp"

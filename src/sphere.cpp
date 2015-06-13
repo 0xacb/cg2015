@@ -6,9 +6,10 @@ Sphere::Sphere(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _radius, GLfloat _r, 
 	z = _z;
 	radius = _radius;
 
-	vx = randomFloat(-0.1, 0.1);
-	vy = randomFloat(-0.1, 0.1);
-	vz = randomFloat(-0.1, 0.1);
+	float speedCap = 0.03;
+	vx = randomFloat(-speedCap, speedCap);
+	vy = randomFloat(-speedCap, speedCap);
+	vz = randomFloat(-speedCap, speedCap);
 
 	if (_r == -1) {
 		color[0] = randomFloat(0.0, 1.0);
@@ -41,12 +42,9 @@ void Sphere::render() {
 };
 
 bool Sphere::isColliding(Sphere *otherSphere) {
-	GLfloat dx = fabs(x - otherSphere->x);
-	GLfloat dy = fabs(y - otherSphere->y);
-	GLfloat dz = fabs(z - otherSphere->z);
+	float centerDistance = sqrt(pow(x - otherSphere->x, 2) + pow(y - otherSphere->y, 2) + pow(z - otherSphere->z, 2));
 
-	float distance = dx * dx + dy * dy + dz * dz;
-	float minDistance = radius + otherSphere->radius;
+	float sumRadius = radius + otherSphere->radius;
 
-	return minDistance >= distance * distance;
+	return centerDistance < sumRadius;
 }

@@ -21,8 +21,6 @@
 
 #define WINDOW_NAME "GG 2015"
 
-using namespace std;
-
 float WINDOW_RESOLUTION_X = 1366;
 float WINDOW_RESOLUTION_Y = 768;
 float WINDOW_MID_X = WINDOW_RESOLUTION_X/2;
@@ -40,10 +38,20 @@ int nFrames = 0;
 World world;
 
 float randomFloat(float a, float b) {
-    float random = ((float) rand()) /(float) RAND_MAX;
-    float diff = b - a;
-    float r = random * diff;
-    return a + r;
+  float random = ((float) rand()) /(float) RAND_MAX;
+  float diff = b - a;
+  float r = random * diff;
+  return a + r;
+}
+
+void print_vector(vector<int> *vec) {
+  printf("{");
+
+  for (int i = 0; i < (int) (*vec).size(); i++) {
+    printf("%d, ", (*vec)[i]);
+  }
+
+  printf("}\n");
 }
 
 /*Input*/
@@ -191,10 +199,9 @@ int main(int argc, char **argv) {
   initShaders();
 
   srand(time(NULL));
-  for (GLfloat x = 0; x < 9; x++) {
-    for (GLfloat z = 0; z < 9; z++) {
-      string type("sphere");
-      world.load(new Sphere(x * 6, 30, z * 6, 2, -1, -1, -1), type);
+  for (GLfloat x = -5; x < 5; x += 1) {
+    for (GLfloat z = -5; z < 5; z += 1) {
+      world.load(new Sphere(x * 6, 30, z * 6, 2, -1, -1, -1), "sphere");
     }
   }
 
