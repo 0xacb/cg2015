@@ -23,7 +23,6 @@ void World::load(Object *obj, string type) {
 	objects.push_back(obj);
 
 	if (type == "sphere") {
-		printf("New sphere added to spheres\n");
 		spheres.push_back((Sphere*) obj);
 	}
 }
@@ -52,15 +51,14 @@ void World::update() {
 				toRemove.push_back(i);
 				toRemove.push_back(u);
 
-
 				GLfloat newX = (spheres[i]->x + spheres[u]->x) / 2;
 				GLfloat newY = (spheres[i]->y + spheres[u]->y) / 2;
 				GLfloat newZ = (spheres[i]->z + spheres[u]->z) / 2;
 
 				Sphere *newSphere = new Sphere(newX, newY, newZ, (spheres[i]->radius + spheres[u]->radius) / 2 * 1.2, -1, -1, -1);
-				newSphere->vx = (spheres[i]->vx + spheres[u]->vx) / 2;
-				newSphere->vy = (spheres[i]->vy + spheres[u]->vy) / 2;
-				newSphere->vz = (spheres[i]->vz + spheres[u]->vz) / 2;
+				newSphere->vx = spheres[i]->vx + spheres[u]->vx;
+				newSphere->vy = spheres[i]->vy + spheres[u]->vy;
+				newSphere->vz = spheres[i]->vz + spheres[u]->vz;
 
 				toAdd.push_back(newSphere);
 				canCollide[i] = false;
@@ -78,13 +76,8 @@ void World::update() {
 		}
 	}
 
-	//sort(toRemove.begin(), toRemove.end());
-	//toRemove.erase(unique(toRemove.begin(), toRemove.end()), toRemove.end());
-
 	sort(toAdd.begin(), toAdd.end());
 	toAdd.erase(unique(toAdd.begin(), toAdd.end()), toAdd.end());
-
-	//print_vector(&toRemove);
 
 	for (int i = toRemove.size() - 1; i >= 0; i--) {
 		spheres.erase(spheres.begin() + toRemove[i]);
@@ -93,19 +86,14 @@ void World::update() {
 			//printf("u = %d, objects.size = %d; i = %d, toRemove.size = %d\n", u, (int) objects.size(), i, (int) toRemove.size());
 
 			if (spheres[toRemove[i]] == objects[u]) {
-				printf("FUCKING REMOVED\n");
 				objects.erase(objects.begin() + u);
 			}
 		}
 	}
 
-	//printf("toAdd.size() = %d, toRemove.size() = %d\n", (int) toAdd.size(), (int) toRemove.size());
 	for (int i = 0; i < (int) toAdd.size(); i++) {
 		load(toAdd[i], "sphere");
 	}
-
-	printf("spheres.size() = %d\n", (int) spheres.size());
-	printf("objects.size() = %d\n", (int) objects.size());
 }
 
 void World::render() {
