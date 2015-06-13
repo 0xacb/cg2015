@@ -32,10 +32,11 @@ void World::update() {
 
 	vector<int> toRemove;
 	vector<Sphere*> toAdd;
+	vector<bool> canCollide(spheres.size(), true);
 
 	for (int i = 0; i < (int) spheres.size(); i++) {
 		for (int u = i + 1; u < (int) spheres.size(); u++) {
-			if (spheres[i]->isColliding(spheres[u])) {
+			if (spheres[i]->isColliding(spheres[u]) && canCollide[i] && canCollide[u]) {
 				GLfloat newColor[4] = {(spheres[i]->color[0] + spheres[i]->color[0]) / 2,
 					(spheres[i]->color[1] + spheres[i]->color[1]) / 2,
 					(spheres[i]->color[2] + spheres[i]->color[2]) / 2,
@@ -51,6 +52,8 @@ void World::update() {
 
 				Sphere *newSphere = new Sphere(spheres[i]->x, spheres[i]->y, spheres[i]->z, (spheres[i]->radius + spheres[u]->radius) * 0.75, -1, -1, -1);
 				toAdd.push_back(newSphere);
+				canCollide[i] = false;
+				canCollide[u] = false;
 				memcpy(newSphere->color, newColor, sizeof(newColor));
 			}
 		}

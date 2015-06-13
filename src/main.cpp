@@ -59,10 +59,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
   if (key == GLFW_KEY_ESCAPE) {
     exit(EXIT_SUCCESS);
   }
+
   if (action == GLFW_PRESS) {
     keyState[key] = true;
-  }
-  else if (action == GLFW_RELEASE) {
+  } else if (action == GLFW_RELEASE) {
     keyState[key] = false;
   }
 }
@@ -100,8 +100,10 @@ void initG(void) {
 }
 
 void initWindow() {
-  if (!glfwInit())
-  exit(EXIT_FAILURE);
+  if (!glfwInit()) {
+    exit(EXIT_FAILURE);
+  }
+
   glfwWindowHint(GLFW_SAMPLES, MULTISAMPLING_LEVEL);
 
   /*Automatic resolution*/
@@ -112,8 +114,11 @@ void initWindow() {
   }
 
   window = glfwCreateWindow(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y, WINDOW_NAME, FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
-  if (!window)
-  exit(EXIT_FAILURE);
+
+  if (!window) {
+    exit(EXIT_FAILURE);
+  }
+
   glfwMakeContextCurrent(window);
   glfwSwapInterval(0); //1 => lock FPS to Screen Hz
   glShadeModel(GL_SMOOTH);
@@ -200,7 +205,7 @@ int main(int argc, char **argv) {
 
   srand(time(NULL));
   for (GLfloat x = -5; x < 5; x += 2) {
-    for (GLfloat z = -5; z < 5; z += 2) {
+    for (GLfloat z = -5; z < 5; z += 1) {
       world.load(new Sphere(x * 6, 30, z * 6, 2, -1, -1, -1), "sphere");
     }
   }
