@@ -1,6 +1,11 @@
+#ifndef WORLD_HPP
+#define WORLD_HPP
+
 #include <stdio.h>
 #include <vector>
 #include <algorithm>
+
+#include <GLFW/glfw3.h>
 
 #include "main.hpp"
 #include "object.hpp"
@@ -13,6 +18,8 @@ class World {
 	public:
 		World();
 		~World();
+
+		GLFWwindow *window;
 
 		GLfloat cubeSide = 50.0f;
 		GLfloat cubeHeight = 40.0f;
@@ -31,3 +38,5 @@ class World {
 		void update();
 		void render();
 };
+
+#endif

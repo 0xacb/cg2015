@@ -1,6 +1,8 @@
 #include "world.hpp"
 
-World::World(){}
+World::World() {
+	//window = _window;
+}
 
 World::~World(){}
 
@@ -28,6 +30,12 @@ void World::load(Object *obj, string type) {
 }
 
 void World::update() {
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
+		// TODO throw a sphere
+		Sphere *newSphere = new Sphere(camera.x, camera.y, camera.z, 1.0f, -1, -1, -1);
+		load(newSphere, "sphere");
+	}
+
 	for (int i = 0; i < (int) objects.size(); i++) {
 		objects[i]->update();
 	}

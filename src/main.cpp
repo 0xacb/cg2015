@@ -3,15 +3,6 @@
 #include <string.h>
 #include <time.h>
 
-#ifdef __APPLE__
-  #include <OpenGL/glu.h>
-  #include <OpenGL/gl.h>
-#else
-  #include <GL/glew.h>
-#endif
-
-#include <GLFW/glfw3.h>
-
 #include <math.h>
 #include <vector>
 #include <map>
@@ -31,10 +22,10 @@ bool FULLSCREEN = true;
 int MULTISAMPLING_LEVEL = 4;
 int FIELD_OF_VIEW = 90;
 
-GLFWwindow* window;
 map<int, bool> keyState;
 int nFrames = 0;
 
+GLFWwindow* window;
 World world;
 
 float randomFloat(float a, float b) {
@@ -114,6 +105,7 @@ void initWindow() {
   }
 
   window = glfwCreateWindow(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y, WINDOW_NAME, FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, NULL);
+  world.window = window;
 
   if (!window) {
     exit(EXIT_FAILURE);
@@ -140,15 +132,15 @@ void renderScene(bool normalRender) {
 
 void renderReflection() {
   glPushMatrix();
-      glScalef(1.0, -0.9, 1.0);
-      glTranslatef(0.0, -world.sea.seaLevel, 0.0);
-      double plane[4] = {0.0, 1.0, 0.0, -world.sea.seaLevel};
-      glEnable(GL_CLIP_PLANE0);
-      glClipPlane(GL_CLIP_PLANE0, plane);
-      renderScene(false);
-      world.sea.renderReflection(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y);
-      glDisable(GL_CLIP_PLANE0);
-    glPopMatrix();
+  glScalef(1.0, -0.9, 1.0);
+  glTranslatef(0.0, -world.sea.seaLevel, 0.0);
+  double plane[4] = {0.0, 1.0, 0.0, -world.sea.seaLevel};
+  glEnable(GL_CLIP_PLANE0);
+  glClipPlane(GL_CLIP_PLANE0, plane);
+  renderScene(false);
+  world.sea.renderReflection(WINDOW_RESOLUTION_X, WINDOW_RESOLUTION_Y);
+  glDisable(GL_CLIP_PLANE0);
+  glPopMatrix();
 }
 
 /*Main Loop*/
