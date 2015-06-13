@@ -13,7 +13,7 @@ void main(void) {
 	float red = 1.0;
 	float green = lightY/400.0+0.6;
 	float blue = lightY/400.0-0.1;
-	
+
 	int curLen = int(currentLen);
 
 	if (curLen % 5 == 0) {
