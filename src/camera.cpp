@@ -80,9 +80,13 @@ void Camera::calcMovement(map<int, bool> keyState) {
 
 	if (camMovementXComponent != 0.0f) {
 		lastCamMovementXComponent = camMovementXComponent;
-	} else if (camMovementYComponent != 0.0f) {
+	}
+
+	if (camMovementYComponent != 0.0f) {
 		lastCamMovementYComponent = camMovementYComponent;
-	} else if (camMovementZComponent != 0.0f) {
+	}
+
+	if (camMovementZComponent != 0.0f) {
 		lastCamMovementZComponent = camMovementZComponent;
 	}
 

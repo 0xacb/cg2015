@@ -36,9 +36,9 @@ void World::update() {
 			printf("%f %f %f\n", camera.camMovementXComponent, camera.camMovementYComponent, camera.camMovementZComponent);
 			printf("%f %f %f\n", camera.lastCamMovementXComponent, camera.lastCamMovementYComponent, camera.lastCamMovementZComponent);
 
-			newSphere->vx = camera.camMovementXComponent;
-			newSphere->vy = camera.camMovementYComponent;
-			newSphere->vz = camera.camMovementZComponent;
+			newSphere->vx = camera.lastCamMovementXComponent;
+			newSphere->vy = camera.lastCamMovementYComponent;
+			newSphere->vz = camera.lastCamMovementZComponent;
 			load(newSphere, "sphere");
 			canAddSphere = false;
 		}
