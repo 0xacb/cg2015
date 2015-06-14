@@ -1,3 +1,13 @@
+CMakeCache.txt
+CMakeFiles/
+cg2015
+Makefile
+cmake_install.cmake
+report.pdf
+report.aux
+report.log
+report.synctex.gz
+
 # Compiled Object files
 *.slo
 *.lo
