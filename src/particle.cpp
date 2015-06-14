@@ -10,12 +10,18 @@ Particle::Particle(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _vx, GLfloat _vy,
   vz = _vz;
 
   lifeTime = 100.0f;
+
+  color[0] = randomFloat(0.8, 1.0);
+  color[1] = randomFloat(0, 0.1);
+  color[4] = 1.0f;
 }
 
 void Particle::update() {
   x += vx;
   y += vy;
   z += vz;
+
+  color[4] = 0.0f;
 }
 
 void Particle::render() {
