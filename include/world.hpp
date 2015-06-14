@@ -9,6 +9,7 @@
 #include "object.hpp"
 #include "sphere.hpp"
 #include "sea.hpp"
+#include "particle.hpp"
 
 #include <GLFW/glfw3.h>
 
@@ -33,6 +34,10 @@ class World {
 
 		vector<Object*> objects;
 		vector<Sphere*> spheres;
+
+		vector<Particle> explosion;
+		void explode(GLfloat, GLfloat, GLfloat);
+
 		double size = 1000;
 		void load(const char* path, GLdouble x, GLdouble y, GLdouble z, GLfloat opacity);
 		void load(const char* path, GLdouble x, GLdouble y, GLdouble z);

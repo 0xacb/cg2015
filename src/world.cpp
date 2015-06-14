@@ -29,12 +29,18 @@ void World::load(Object *obj, string type) {
 	}
 }
 
+void World::explode(GLfloat x, GLfloat y, GLfloat z) {
+	for (int i = 0; i < 10000; i++) {
+		Particle *particle = new Particle(x, y, z);
+	}
+}
+
 void World::update() {
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 		if (canAddSphere) {
 			Sphere *newSphere = new Sphere(camera.x, camera.y, camera.z, 1.0f, -1, -1, -1);
-			printf("%f %f %f\n", camera.camMovementXComponent, camera.camMovementYComponent, camera.camMovementZComponent);
-			printf("%f %f %f\n", camera.lastCamMovementXComponent, camera.lastCamMovementYComponent, camera.lastCamMovementZComponent);
+			//printf("%f %f %f\n", camera.camMovementXComponent, camera.camMovementYComponent, camera.camMovementZComponent);
+			//printf("%f %f %f\n", camera.lastCamMovementXComponent, camera.lastCamMovementYComponent, camera.lastCamMovementZComponent);
 
 			float speedNormal = sqrt(pow(camera.lastCamMovementXComponent, 2) +
 			 											   pow(camera.lastCamMovementYComponent, 2) +
@@ -45,6 +51,8 @@ void World::update() {
 			newSphere->vz = camera.lastCamMovementZComponent / speedNormal;
 			load(newSphere, "sphere");
 			canAddSphere = false;
+
+			explode(camera.x, camera.y, camera.z);
 		}
 	} else {
 		canAddSphere = true;

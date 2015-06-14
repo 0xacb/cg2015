@@ -22,6 +22,10 @@ class Particle {
   public:
     GLfloat x, y, z;
     GLfloat vx, vy, vz;
+		GLfloat lifeTime;
+
+		Particle(GLfloat, GLfloat, GLfloat);
+		void render();
 };
 
 #endif

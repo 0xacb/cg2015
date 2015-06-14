@@ -34,7 +34,10 @@ bool Object::load() {
 		switch (line[0]) {
 			case 'v':
 				sscanf(line+2, "%lf %lf %lf", &x, &y, &z);
-				p = {x, y, z};
+				//p = {x, y, z};
+				p.x = x;
+				p.y = y;
+				p.z = z;
 				if (line[1] == ' ') {
 					this->verts.push_back(p);
 				}
@@ -73,7 +76,7 @@ bool Object::load() {
 }
 
 void Object::update() {
-	
+
 }
 
 void Object::render() {
