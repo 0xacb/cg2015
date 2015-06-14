@@ -1,3 +1,6 @@
+#ifndef CAMERA_HPP
+#define CAMERA_HPP
+
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
 #else
@@ -27,7 +30,9 @@ class Camera {
 		GLfloat camSpeed = 4.0f;
 		GLfloat mouseVSensitivity = 7.0f;
 		GLfloat mouseHSensitivity = 7.0f;
-		void move(double delta);
+		void move(double delta, float seaLevel);
 		void rotate(int horizontalMovement, int verticalMovement);
 		void calcMovement(map<int, bool> keyState);
 };
+
+#endif

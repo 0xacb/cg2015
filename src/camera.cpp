@@ -4,10 +4,15 @@ Camera::Camera(){}
 
 Camera::~Camera(){}
 
-void Camera::move(double delta) {
+void Camera::move(double delta, float seaLevel) {
 	x += vcamX*camSpeed*delta;
 	y += vcamY*camSpeed*delta;
 	z += vcamZ*camSpeed*delta;
+
+	if (y < seaLevel) {
+		y = seaLevel;
+	}
+
 	glLoadIdentity();
 	glRotatef(rcamX, 1.0f, 0.0f, 0.0f);
 	glRotatef(rcamY, 0.0f, 1.0f, 0.0f);
@@ -75,7 +80,7 @@ void Camera::calcMovement(map<int, bool> keyState) {
 	}
 
 	vcamX = camMovementXComponent;
-	vcamY = camMovementYComponent;
+		vcamY = camMovementYComponent;
 	vcamZ = camMovementZComponent;
 
 	if (camMovementXComponent != 0.0f) {

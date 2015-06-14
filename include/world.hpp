@@ -21,7 +21,7 @@ class World {
 
 		GLFWwindow *window;
 
-		GLfloat cubeSide = 50.0f;
+		GLfloat cubeSide = 60.0f;
 		GLfloat cubeHeight = 40.0f;
 
 		Camera camera;

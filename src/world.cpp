@@ -90,7 +90,8 @@ void World::update() {
 		}
 
 		if (fabs(spheres[i]->x) >= cubeSide ||
-		 	  fabs(spheres[i]->y) + spheres[i]->radius >= cubeHeight ||
+		 	  spheres[i]->y >= cubeHeight ||
+				spheres[i]->y <= sea.seaLevel ||
 				fabs(spheres[i]->z) >= cubeSide) {
 			spheres[i]->vx = -spheres[i]->vx;
 			spheres[i]->vy = -spheres[i]->vy;

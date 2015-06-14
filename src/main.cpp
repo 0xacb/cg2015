@@ -166,7 +166,7 @@ void mainLoop() {
     renderScene(true);
 
     world.camera.calcMovement(keyState);
-    world.camera.move(delta);
+    world.camera.move(delta, world.sea.seaLevel + 1.0f);
 
     glfwSwapBuffers(window);
     glfwPollEvents();
