@@ -36,9 +36,16 @@ void Camera::rotate(int horizontalMovement, int verticalMovement) {
 		rcamY -= 360.0f;
 	}
 
+	float pitchFactor = cos(TO_RADS(rcamX));
+	lastCamMovementXComponent = (camSpeed * float(sin(TO_RADS(rcamY)))) * pitchFactor;
+	lastCamMovementYComponent = camSpeed * float(sin(TO_RADS(rcamX))) * -1.0f;
+	float yawFactor = float(cos(TO_RADS(rcamX)));
+	lastCamMovementZComponent = (camSpeed * float(cos(TO_RADS(rcamY))) * -1.0f) * yawFactor;
 }
 
 void Camera::calcMovement(map<int, bool> keyState) {
+	float pitchFactor, yawFactor, yRotRad;
+
 	camMovementXComponent = 0.0f;
 	camMovementYComponent = 0.0f;
 	camMovementZComponent = 0.0f;
@@ -52,48 +59,36 @@ void Camera::calcMovement(map<int, bool> keyState) {
 	}
 
 	if (keyState[GLFW_KEY_W]) {
-		float pitchFactor = cos(TO_RADS(rcamX));
+		pitchFactor = cos(TO_RADS(rcamX));
 		camMovementXComponent += (camSpeed * float(sin(TO_RADS(rcamY)))) * pitchFactor;
 		camMovementYComponent += camSpeed * float(sin(TO_RADS(rcamX))) * -1.0f;
-		float yawFactor = float(cos(TO_RADS(rcamX)));
+		yawFactor = float(cos(TO_RADS(rcamX)));
 		camMovementZComponent += (camSpeed * float(cos(TO_RADS(rcamY))) * -1.0f) * yawFactor;
 	}
 
 	if (keyState[GLFW_KEY_S]) {
-		float pitchFactor = cos(TO_RADS(rcamX));
+		pitchFactor = cos(TO_RADS(rcamX));
 		camMovementXComponent += (camSpeed * float(sin(TO_RADS(rcamY))) * -1.0f) * pitchFactor;
 		camMovementYComponent += camSpeed * float(sin(TO_RADS(rcamX)));
-		float yawFactor = float(cos(TO_RADS(rcamX)));
+		yawFactor = float(cos(TO_RADS(rcamX)));
 		camMovementZComponent += (camSpeed * float(cos(TO_RADS(rcamY)))) * yawFactor;
 	}
 
 	if (keyState[GLFW_KEY_A]) {
-		float yRotRad = TO_RADS(rcamY);
+		yRotRad = TO_RADS(rcamY);
 		camMovementXComponent += -camSpeed * float(cos(yRotRad));
 		camMovementZComponent += -camSpeed * float(sin(yRotRad));
 	}
 
 	if (keyState[GLFW_KEY_D]) {
-		float yRotRad = TO_RADS(rcamY);
+		yRotRad = TO_RADS(rcamY);
 		camMovementXComponent += camSpeed * float(cos(yRotRad));
 		camMovementZComponent += camSpeed * float(sin(yRotRad));
 	}
 
 	vcamX = camMovementXComponent;
-		vcamY = camMovementYComponent;
+	vcamY = camMovementYComponent;
 	vcamZ = camMovementZComponent;
-
-	if (camMovementXComponent != 0.0f) {
-		lastCamMovementXComponent = camMovementXComponent;
-	}
-
-	if (camMovementYComponent != 0.0f) {
-		lastCamMovementYComponent = camMovementYComponent;
-	}
-
-	if (camMovementZComponent != 0.0f) {
-		lastCamMovementZComponent = camMovementZComponent;
-	}
 
 	if (vcamX > camSpeed) vcamX = camSpeed;
 	else if (vcamX < -camSpeed) vcamX = -camSpeed;

@@ -40,8 +40,8 @@ void Particle::render() {
   GLfloat colorWhite[4] = {1.0, 1.0, 1.0, 1.0};
   GLfloat colorAmbient[4] = {0.2, 0.2, 0.2, 1.0};
 
-  glMaterialfv(GL_FRONT, GL_DIFFUSE, this->color);
-  glMaterialfv(GL_FRONT, GL_AMBIENT, this->color);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, color);
+  glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 
   glBegin(GL_POLYGON);
   glNormal3f( 0.0, 1.0, 1.0);

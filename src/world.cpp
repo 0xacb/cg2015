@@ -49,9 +49,7 @@ void World::update() {
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 		if (canAddSphere) {
 			Sphere *newSphere = new Sphere(camera.x, camera.y, camera.z, 1.0f, -1, -1, -1);
-			//printf("%f %f %f\n", camera.camMovementXComponent, camera.camMovementYComponent, camera.camMovementZComponent);
-			//printf("%f %f %f\n", camera.lastCamMovementXComponent, camera.lastCamMovementYComponent, camera.lastCamMovementZComponent);
-
+	
 			float speedNormal = sqrt(pow(camera.lastCamMovementXComponent, 2) +
 			 											   pow(camera.lastCamMovementYComponent, 2) +
 															 pow(camera.lastCamMovementZComponent, 2));
@@ -59,11 +57,12 @@ void World::update() {
 			newSphere->vx = camera.lastCamMovementXComponent / speedNormal;
 			newSphere->vy = camera.lastCamMovementYComponent / speedNormal;
 			newSphere->vz = camera.lastCamMovementZComponent / speedNormal;
+			
 			load(newSphere, "sphere");
 			canAddSphere = false;
 
 			//explode(camera.x, camera.y, camera.z);
-		}
+		 }
 	} else {
 		canAddSphere = true;
 	}
