@@ -23,7 +23,7 @@ class Particle {
     GLfloat x, y, z;
     GLfloat vx, vy, vz;
 		GLfloat lifeTime;
-		GLfloat color[4];
+		GLfloat color[4] = {1.0f, 0.0f, 0.0f, 0.5f};
 
 		Particle(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
 		void update();

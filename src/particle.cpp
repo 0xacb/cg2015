@@ -10,8 +10,6 @@ Particle::Particle(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _vx, GLfloat _vy,
   vz = _vz;
 
   lifeTime = 100.0f;
-
-  GLfloat color[] = {1.0f, 0.0f, 0.0f, 0.5f};
 }
 
 void Particle::update() {
@@ -28,14 +26,6 @@ void Particle::render() {
   glMaterialfv(GL_FRONT, GL_AMBIENT, color);
 
   glBegin(GL_POLYGON);
-  glNormal3f(  1.0,  1.0, 1.0 );
-  glVertex3f(  0.5, -0.5, 0.5 );
-  glVertex3f(  0.5,  0.5, 0.5 );
-  glVertex3f( -0.5,  0.5, 0.5 );
-  glVertex3f( -0.5, -0.5, 0.5 );
-  glEnd();
-
-  /*glBegin(GL_POLYGON);
   glNormal3f( 0.0, 1.0, 1.0);
   glVertex3f(  0.1, -0.1, 0.1 );
   glVertex3f(  0.1,  0.1, 0.1 );
@@ -73,7 +63,7 @@ void Particle::render() {
   glVertex3f(  0.1, -0.1,  0.1 );
   glVertex3f( -0.1, -0.1,  0.1 );
   glVertex3f( -0.1, -0.1, -0.1 );
-  glEnd();*/
+  glEnd();
 
   glMaterialfv(GL_FRONT, GL_DIFFUSE, colorWhite);
   glMaterialfv(GL_FRONT, GL_AMBIENT, colorAmbient);
