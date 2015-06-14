@@ -39,8 +39,8 @@ void World::load(Object *obj, string type) {
 }
 
 void World::explode(GLfloat x, GLfloat y, GLfloat z) {
-	for (int i = 0; i < 100; i++) {
-		Particle *particle = new Particle(x, y, z, randomFloat(-0.05, 0.05), randomFloat(0, 0.08), randomFloat(-0.05, 0.05));
+	for (int i = 0; i < 500; i++) {
+		Particle *particle = new Particle(x, y, z, randomFloat(-0.1, 0.1), randomFloat(0, 0.12), randomFloat(-0.1, 0.1));
 		explosion.push_back(particle);
 	}
 }

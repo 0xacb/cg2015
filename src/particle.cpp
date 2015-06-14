@@ -11,8 +11,21 @@ Particle::Particle(GLfloat _x, GLfloat _y, GLfloat _z, GLfloat _vx, GLfloat _vy,
 
   lifeTime = 100.0f;
 
-  color[0] = randomFloat(0.8, 1.0);
-  color[1] = randomFloat(0, 0.8);
+  float selector = randomFloat(0, 1);
+
+  if (selector < 0.3) {
+    color[0] = randomFloat(0.8, 1.0);
+    color[1] = 0.0f;
+    color[2] = 0.0f;
+  } else if (selector > 0.3 && selector < 0.5) {
+    color[0] = randomFloat(0.8, 1.0);
+    color[1] = randomFloat(0.8, 1.0);
+    color[2] = 0.0f;
+  } else {
+    color[0] = 1.0f;
+    color[1] = randomFloat(0.4, 0.6);
+    color[2] = 0.0f;
+  }
 }
 
 void Particle::update() {
@@ -20,7 +33,7 @@ void Particle::update() {
   y += vy;
   z += vz;
 
-  color[3] -= 0.01;
+  color[3] -= 0.005f;
 }
 
 void Particle::render() {
