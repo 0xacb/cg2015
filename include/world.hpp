@@ -35,7 +35,7 @@ class World {
 		vector<Object*> objects;
 		vector<Sphere*> spheres;
 
-		vector<Particle> explosion;
+		vector<Particle*> explosion;
 		void explode(GLfloat, GLfloat, GLfloat);
 
 		double size = 1000;

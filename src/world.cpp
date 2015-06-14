@@ -30,8 +30,9 @@ void World::load(Object *obj, string type) {
 }
 
 void World::explode(GLfloat x, GLfloat y, GLfloat z) {
-	for (int i = 0; i < 10000; i++) {
-		Particle *particle = new Particle(x, y, z);
+	for (int i = 0; i < 100; i++) {
+		Particle *particle = new Particle(x, y, z, randomFloat(-0.05, 0.05), randomFloat(0, 0.08), randomFloat(-0.05, 0.05));
+		explosion.push_back(particle);
 	}
 }
 
@@ -52,10 +53,14 @@ void World::update() {
 			load(newSphere, "sphere");
 			canAddSphere = false;
 
-			explode(camera.x, camera.y, camera.z);
+			//explode(camera.x, camera.y, camera.z);
 		}
 	} else {
 		canAddSphere = true;
+	}
+
+	for (int i = 0; i < (int) explosion.size(); i++) {
+		explosion[i]->update();
 	}
 
 	for (int i = 0; i < (int) objects.size(); i++) {
@@ -94,6 +99,7 @@ void World::update() {
 				canCollide[i] = false;
 				canCollide[u] = false;
 				memcpy(newSphere->color, newColor, sizeof(newColor));
+				explode(newX, newY + 3.0f, newZ);
 			}
 		}
 
@@ -141,6 +147,13 @@ void World::render() {
 		glPushMatrix();
 		glTranslatef(spheres[i]->x, spheres[i]->y, spheres[i]->z);
 		spheres[i]->render();
+		glPopMatrix();
+	}
+
+	for (int i = 0; i < (int) explosion.size(); i++) {
+		glPushMatrix();
+		glTranslatef(explosion[i]->x, explosion[i]->y, explosion[i]->z);
+		explosion[i]->render();
 		glPopMatrix();
 	}
 }
