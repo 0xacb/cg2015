@@ -13,6 +13,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include <SFML/Audio.hpp>
+
 using namespace std;
 
 class World {
@@ -30,6 +32,8 @@ class World {
 		Skybox skybox;
 		Sea sea;
 
+		sf::Music backgroundMusic, bubbleSound;
+
 		bool canAddSphere = true;
 
 		vector<Object*> objects;
@@ -42,8 +46,11 @@ class World {
 		void load(const char* path, GLdouble x, GLdouble y, GLdouble z, GLfloat opacity);
 		void load(const char* path, GLdouble x, GLdouble y, GLdouble z);
 		void load(Object *obj, string type);
+		void loadSpheres();
 		void update();
 		void render();
+		void loadMusic();
+		void playBubbleSound(GLfloat x, GLfloat y, GLfloat z);
 };
 
 #endif

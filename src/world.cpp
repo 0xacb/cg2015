@@ -19,6 +19,15 @@ void World::load(const char* path, GLdouble x, GLdouble y, GLdouble z, GLfloat o
 	obj->opacity = opacity;
 }
 
+void World::loadSpheres() {
+  srand(time(NULL));
+  for (GLfloat x = -5; x < 5; x += 2) {
+    for (GLfloat z = -5; z < 5; z += 2) {
+      load(new Sphere(x * 6, 30, z * 6, 2, -1, -1, -1), "sphere");
+    }
+  }
+}
+
 void World::load(Object *obj, string type) {
 	obj->load();
 	obj->type = type;
@@ -95,6 +104,8 @@ void World::update() {
 				newSphere->vy = spheres[i]->vy + spheres[u]->vy;
 				newSphere->vz = spheres[i]->vz + spheres[u]->vz;
 
+				playBubbleSound(newX, newY, newZ);
+
 				toAdd.push_back(newSphere);
 				canCollide[i] = false;
 				canCollide[u] = false;
@@ -156,4 +167,30 @@ void World::render() {
 		explosion[i]->render();
 		glPopMatrix();
 	}
+}
+
+void World::loadMusic() {
+  if (backgroundMusic.openFromFile("sound/background-music.ogg")) {
+    backgroundMusic.play();
+    backgroundMusic.setLoop(true);
+  }
+  bubbleSound.openFromFile("sound/bubble.ogg");
+}
+
+int clampVolume(float volume) {
+	if (volume > 100) {
+		return 100;
+	}
+	if (volume < 0) {
+		return 20;
+	}
+	return (int)volume;
+}
+
+void World::playBubbleSound(GLfloat x, GLfloat y, GLfloat z) {
+	float distance = sqrt(pow(x-camera.x, 2)+pow(y-camera.y, 2)+pow(z-camera.z, 2));
+	float pitch = randomFloat(1.0, 2.0);
+	bubbleSound.setPitch(pitch);
+	bubbleSound.setVolume(clampVolume(100-distance));
+  	bubbleSound.play();
 }
