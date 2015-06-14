@@ -79,6 +79,7 @@ void drawSkyboxFace(int i, GLint texture, double dist, float brightness) {
 }
 
 float calcDayBrightness(float rSun) {
+  rSun = fmod(rSun, 360);
   if (rSun > 200) {
     return MIN_BRIGHTNESS;
   }

@@ -31,7 +31,7 @@ class Skybox {
 		Shader sunShader;
 		Shader lensShader;
 		float rSun = 0, sunX = 0, sunY = 400, sunZ = 0, lightX, lightY, lightZ = 0;
-		float dayDuration = 1000; //seconds
+		float dayDuration = 500; //seconds
 		float brightness;
 		float nLens = 5;
 		GLint lightYLoc, lightYLensLoc, currentLenLoc, brightnessLoc;
