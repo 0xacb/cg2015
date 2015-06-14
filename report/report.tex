@@ -38,17 +38,26 @@ dentro de um cubo coberto, na sua base, por água.
   \includegraphics[width=0.75\textwidth]{screenshot}
 \end{figure}
 
+O objetivo deste relatório é apresentar algumas das \textit{features} do nosso projeto e explicar sucintamente a sua implementação.
+
 \pagebreak
 
-\subsection*{Object Loader}
+\subsection*{\textit{Object Loader}}
 Para facilitar o desenvolvimento do projeto criamos um \textit{loader} de objetos que desenha modelos
 a partir de ficheiros \texttt{.obj}. Com este mecanismo associado à classe \texttt{Object}, carregamos o modelo da ilha assim como o do cubo.
 \subsection*{Sol}
 \subsection*{Reflexão}
 \subsection*{Água}
-\subsection*{Lens Flare}
+\subsection*{\textit{Skybox}}
+\subsection*{\textit{Lens Flare}}
 \subsection*{Colisões}
+Vários tipos de colisões simples são usadas no nosso projeto, seja para detetar colisão entre duas esferas ou entre esferas e planos.
+
 \subsection*{Explosões (partículas)}
+Implementamos um efeito de partículas que gera centenas de partículas (implementadas com pequenos cubos tridimensionais de OpenGL) para simular uma explosão fogosa quando duas bolas colidem.
+
 \subsection*{Lançamento de Bolas}
+Ao carregarmos com o rato esquerdo no ecrã será "atirada" para a cena uma nova bola com a direção
+do observador que, tal como qualquer outra bola, interage com as restantes (podendo portanto colidir com qualquer coisa).
 
 \end{document}
