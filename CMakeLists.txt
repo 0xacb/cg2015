@@ -1,7 +1,7 @@
 set (PROJECT_NAME "cg2015")
 
 if (APPLE)
-  set (CMAKE_CXX_FLAGS "-std=c++11 -Wall -g -framework OpenGl -lglfw3")
+  set (CMAKE_CXX_FLAGS "-std=c++11 -Wall -g -framework OpenGl -lglfw3 -framework sfml-audio")
 ELSE (NOT APPLE)
   set (CMAKE_CXX_FLAGS "-std=c++11 -Wall -g -lGLEW -lGL -lGLU -lglfw -lsfml-audio")
 ENDIF (APPLE)
