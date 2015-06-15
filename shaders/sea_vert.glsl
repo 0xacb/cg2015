@@ -6,8 +6,6 @@ uniform float waveWidth;
 uniform float waveHeight;
 uniform float wavePeriod;
 
-uniform vec4 lightPos, cameraPos;
-
 void main() {
 	vec4 v = vec4(gl_Vertex);
 	float waveR = max(abs(v.z), abs(v.x))*0.01;
