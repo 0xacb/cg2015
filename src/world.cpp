@@ -39,7 +39,7 @@ void World::load(Object *obj, string type) {
 }
 
 void World::explode(GLfloat x, GLfloat y, GLfloat z) {
-	for (int i = 0; i < 500; i++) {
+	for (int i = 0; i < 400; i++) {
 		Particle *particle = new Particle(x, y, z, randomFloat(-0.1, 0.1), randomFloat(0, 0.12), randomFloat(-0.1, 0.1));
 		explosion.push_back(particle);
 	}
@@ -49,7 +49,7 @@ void World::update() {
 	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT)) {
 		if (canAddSphere) {
 			Sphere *newSphere = new Sphere(camera.x, camera.y, camera.z, 1.0f, -1, -1, -1);
-	
+
 			float speedNormal = sqrt(pow(camera.lastCamMovementXComponent, 2) +
 			 											   pow(camera.lastCamMovementYComponent, 2) +
 															 pow(camera.lastCamMovementZComponent, 2));
@@ -57,7 +57,7 @@ void World::update() {
 			newSphere->vx = camera.lastCamMovementXComponent / speedNormal;
 			newSphere->vy = camera.lastCamMovementYComponent / speedNormal;
 			newSphere->vz = camera.lastCamMovementZComponent / speedNormal;
-			
+
 			load(newSphere, "sphere");
 			canAddSphere = false;
 
@@ -67,8 +67,18 @@ void World::update() {
 		canAddSphere = true;
 	}
 
+	vector<int> particlesToRemove;
 	for (int i = 0; i < (int) explosion.size(); i++) {
 		explosion[i]->update();
+
+		if (explosion[i]->color[3] <= 0.0f) {
+			particlesToRemove.push_back(i);
+		}
+	}
+
+	/* Clean up explosion particles */
+	for (int i = (int) particlesToRemove.size() - 1; i >= 0; i--) {
+		explosion.erase(explosion.begin() + particlesToRemove[i]);
 	}
 
 	for (int i = 0; i < (int) objects.size(); i++) {
