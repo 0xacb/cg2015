@@ -14,6 +14,7 @@ void main() {
 	vec4 projCoord = viewCoords / viewCoords.q;
 	projCoord = (projCoord+1.0) * 0.5;
 	projCoord = clamp(projCoord, 0.00001, 0.99999);
+	projCoord.x = clamp(projCoord.x+waveSpecular*0.04-0.1, 0.0, 0.9992	);
 	vec4 reflectionColor = texture2D(reflection, projCoord.xy);
 	reflectionColor = reflectionColor-0.7;
 
