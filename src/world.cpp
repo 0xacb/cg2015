@@ -183,6 +183,7 @@ void World::loadMusic() {
     backgroundMusic.play();
     backgroundMusic.setLoop(true);
   }
+
   bubbleSound.openFromFile("sound/bubble.ogg");
 }
 
@@ -190,9 +191,11 @@ int clampVolume(float volume) {
 	if (volume > 100) {
 		return 100;
 	}
+
 	if (volume < 0) {
 		return 20;
 	}
+
 	return (int)volume;
 }
 
@@ -201,5 +204,5 @@ void World::playBubbleSound(GLfloat x, GLfloat y, GLfloat z) {
 	float pitch = randomFloat(1.0, 2.0);
 	bubbleSound.setPitch(pitch);
 	bubbleSound.setVolume(clampVolume(100-distance));
-  	bubbleSound.play();
+  bubbleSound.play();
 }
