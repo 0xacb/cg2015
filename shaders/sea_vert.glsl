@@ -1,7 +1,5 @@
 varying vec4 viewCoords;
 varying vec4 texCoords;
-varying vec4 lightTangentSpace;
-varying vec4 viewTangentSpace;
 varying vec4 vertCoords;
 
 uniform float waveWidth;
