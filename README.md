@@ -6,7 +6,7 @@ Authors: [ABaptista](https://github.com/ABaptista) and [davidgomes](https://gith
 * Object and texture loader
 * Object and texture rendering
 * Skybox
-* Sea shader
+* Water shader (waves and reflection)
 * Sun shader
 * Lens flare shader
 * Collisions
