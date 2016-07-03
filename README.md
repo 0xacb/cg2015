@@ -1,4 +1,4 @@
-**Computational Graphics project (BSc) - OPENGL**
+**Computational Graphics project (BSc) - OpenGL**
 
 Authors: [ABaptista](https://github.com/ABaptista) and [davidgomes](https://github.com/davidgomes)
 
