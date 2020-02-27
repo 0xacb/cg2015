@@ -1,6 +1,6 @@
 **Computational Graphics project (BSc) - OpenGL**
 
-Authors: [ABaptista](https://github.com/ABaptista) and [davidgomes](https://github.com/davidgomes)
+Authors: [0xacb](https://github.com/0xacb) and [davidgomes](https://github.com/davidgomes)
 
 **Features:**
 * Object and texture loader
